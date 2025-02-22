@@ -1,5 +1,6 @@
 import { Typography, Card } from 'antd';
 import { HeartOutlined, SafetyOutlined, TeamOutlined } from '@ant-design/icons';
+import { JSX } from 'react';
 
 const { Title, Paragraph } = Typography;
 
@@ -33,7 +34,7 @@ const HomePage = () => {
   );
 };
 
-const FeatureCard = ({ title, description, icon }) => (
+const FeatureCard = ({ title, description, icon } : { title: string, description: string, icon: JSX.Element }) => (
   <Card 
     className="text-center hover:shadow-lg transition-shadow duration-300"
     cover={<div className="py-6">{icon}</div>}

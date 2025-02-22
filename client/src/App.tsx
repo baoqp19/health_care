@@ -1,9 +1,8 @@
 
-import { ConfigProvider, App as AntApp } from 'antd';
 import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ThemeRoutes } from './routes';
-
+import { ConfigProvider, App as AntApp } from 'antd'
+import { createBrowserRouter, Router, RouterProvider } from 'react-router-dom'
+import { ThemeRoutes } from './routes'
 
 function App() {
 
@@ -20,9 +19,9 @@ function App() {
         hashed: false,
       }}
     >
-        <AntApp>
-          <RouterProvider router={router} />
-        </AntApp>
+      <AntApp>
+        <RouterProvider router={router} />
+      </AntApp>
     </ConfigProvider>
   )
 }

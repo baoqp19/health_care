@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
 import { Outlet } from "react-router-dom";
 
-
 const AuthLayout = () => {
   return (
     <Row className="h-screen overflow-hidden justify-center bg-gradient-to-b from-green-50 to-blue-50">
