@@ -1,5 +1,14 @@
 package com.example.HealthCare.request.member;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+
+import com.example.HealthCare.enums.BloodGroudEnum;
+import com.example.HealthCare.enums.GenderEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -21,17 +30,17 @@ public class AddMemberRequest {
 
   @NotNull(message = "DateOfBirth is required")
   @Past(message = "DateOfBirth must be a past date")
-  private java.time.LocalDate dateOfBirth;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime dateOfBirth;
 
-  @NotBlank(message = "Gender is required")
-  @Pattern(regexp = "Male|Female|Other", message = "Gender must be Male, Female, or Other")
-  private String gender;
+  @Enumerated(EnumType.STRING)
+  private GenderEnum gender;
 
   @NotBlank(message = "Relationship is required")
   private String relationship;
 
-  @Pattern(regexp = "A|B|AB|O", message = "BloodType must be A, B, AB, or O")
-  private String bloodType;
+  @Enumerated(EnumType.STRING)
+  private BloodGroudEnum bloodType;
 
   @NotNull(message = "Height is required")
   @Min(value = 0, message = "Height must be greater than or equal to 0")

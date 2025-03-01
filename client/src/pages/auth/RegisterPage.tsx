@@ -3,6 +3,7 @@ import Title from "antd/es/typography/Title";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
+
 const RegisterPage = () => {
   const [form] = Form.useForm();
 

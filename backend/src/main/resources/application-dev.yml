@@ -4,10 +4,10 @@ spring:
     resources:
       add-mappings: false
   datasource:
-    url: jdbc:mysql://localhost:3306/health_care
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER}
   jpa:
     generate-ddl: true
     hibernate:
@@ -15,13 +15,12 @@ spring:
 application:
   security:
     jwt:
-      secret-key: 3j1Q8gWEoZXQV3TBds6CWdALIx2+TsEMsC+G8lYtQTU086bwXzI8JqQV+T1lEoDbZVY48QQUFPqgcTtjMXpPKw==
-
+      secret-key: ${SECRET-KEY}
       expiration: 86400000 # 1 day in milliseconds
       refresh-token:
         expiration: 604800000 # 7 days in milliseconds
 
 openai:
   api:
-    key: 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
+    key: ${OPENAI-KEY}
     url: https://api.openai.com/v1/chat/completions

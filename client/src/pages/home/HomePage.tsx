@@ -4,39 +4,41 @@ import { JSX } from 'react';
 
 const { Title, Paragraph } = Typography;
 
+
 const HomePage = () => {
   return (
     <div className="max-w-4xl mx-auto">
-    <Title className="text-center text-4xl md:text-5xl font-bold text-gray-800 mb-8">
-      Family Medical Diary
-    </Title>
-    <Paragraph className="text-center text-lg text-gray-600 mb-12">
-      Manage and track your family's health records in a secure and convenient digital space.
-    </Paragraph>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <FeatureCard
-        title="Health Tracking"
-        description="Record and manage health information for each family member."
-        icon={<HeartOutlined style={{ fontSize: '3rem', color: '#16a34a' }} />}
-      />
-      <FeatureCard
-        title="Data Security"
-        description="Your family's health data is encrypted and securely protected."
-        icon={<SafetyOutlined style={{ fontSize: '3rem', color: '#2563eb' }} />}
-      />
-      <FeatureCard
-        title="Family Management"
-        description="Easily add and manage health profiles for multiple family members."
-        icon={<TeamOutlined style={{ fontSize: '3rem', color: '#7c3aed' }} />}
-      />
+      <Title className="text-center text-4xl md:text-5xl font-bold text-gray-800 mb-8">
+        Family Medical Diary
+      </Title>
+      <Paragraph className="text-center text-lg text-gray-600 mb-12">
+        Manage and track your family's health records in a secure and convenient digital space.
+      </Paragraph>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <FeatureCard
+          title="Health Tracking"
+          description="Record and manage health information for ch family member."
+          icon={<HeartOutlined style={{ fontSize: '3rem', color: '#16a34a' }} />}
+        />
+        <FeatureCard
+          title="Data Security"
+          description="Your family's health data is encrypted and securely protected."
+          icon={<SafetyOutlined style={{ fontSize: '3rem', color: '#2563eb' }} />}
+        />
+        <FeatureCard
+          title="Family Management"
+          description="Easily add and manage health profiles for multiple family members."
+          icon={<TeamOutlined style={{ fontSize: '3rem', color: '#7c3aed' }} />}
+        /> 
+      </div>
     </div>
-  </div>
   );
 };
 
-const FeatureCard = ({ title, description, icon } : { title: string, description: string, icon: JSX.Element }) => (
-  <Card 
-    className="text-center hover:shadow-lg transition-shadow duration-300"
+
+const FeatureCard = ({ title, description, icon }: { title: string, description: string, icon: JSX.Element }) => (
+  <Card
+    className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer"
     cover={<div className="py-6">{icon}</div>}
   >
     <Card.Meta
@@ -45,5 +47,6 @@ const FeatureCard = ({ title, description, icon } : { title: string, description
     />
   </Card>
 );
+
 
 export default HomePage;
