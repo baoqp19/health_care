@@ -77,17 +77,13 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public ResponseEntity<ApiResponse<List<Member>>> getAllMembers(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "8") int size,
-            @RequestParam(defaultValue = "") String keyword) {
-        Page<Member> membersPage = this.memberService.getAllMembers(page, size, keyword);
+    public ResponseEntity<List<Member>> getAllMember(
+    // @RequestParam(defaultValue = "1") int page,
+    // @RequestParam(defaultValue = "8") int size,
+    // @RequestParam(defaultValue = "") String keyword
+    ) {
+        List<Member> membersPage = this.memberService.getAllMember();
 
-        List<Member> membersContent = membersPage.getContent();
-        ApiResponse<List<Member>> response = new ApiResponse<>(
-                HttpStatus.OK.value(),
-                "Get list member successfully",
-                membersContent);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(membersPage, HttpStatus.OK);
     }
 }

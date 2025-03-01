@@ -52,4 +52,12 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findAll(pageable); // Use pageable for pagination
     }
 
+    @Override
+    public List<Member> getAllMember() {
+      
+        return this.memberRepository.findAll();
+    }
+
+    
+
 }
