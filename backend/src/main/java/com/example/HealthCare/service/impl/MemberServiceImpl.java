@@ -1,5 +1,6 @@
 package com.example.HealthCare.service.impl;
 
+import com.example.HealthCare.dto.PaginationDTO.ResultPaginationDTO;
 import com.example.HealthCare.model.Member;
 import com.example.HealthCare.repository.MemberRepository;
 import com.example.HealthCare.service.MemberService;
@@ -53,11 +54,25 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> getAllMember() {
-      
-        return this.memberRepository.findAll();
-    }
+    public ResultPaginationDTO getAllMember(Pageable pageable) {
 
-    
+        Page<Member> pageMember = this.memberRepository.findAll(pageable);
+
+        ResultPaginationDTO rs = new ResultPaginationDTO();
+
+        ResultPaginationDTO.Meta mt = new ResultPaginationDTO.Meta();
+
+        mt.setPage(pageable.getPageNumber() + 1);
+        mt.setPageSize(pageable.getPageSize());
+
+        mt.setPages(pageMember.getTotalPages());
+        mt.setTotal(pageMember.getTotalElements());
+
+        rs.setMeta(mt);
+        rs.setResult(pageMember.getContent());
+
+        return rs;
+
+    }
 
 }

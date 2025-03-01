@@ -19,13 +19,13 @@ export const DashboardRoutes: RouteObject = {
       children: [
         {
           path: "",
-          // element: <PrivateRoute element={<DashBoardPage />} />,
-          element: <DashBoardPage />
+          element: <PrivateRoute element={<DashBoardPage />} />,
+          // element: <DashBoardPage />
         },
         {
           path: "members",
-          // element: <PrivateRoute element={<MemberPage />} />,
-          element: <MemberPage />
+          element: <PrivateRoute element={<MemberPage />} />,
+          // element: <MemberPage />
         },
       ],
     },

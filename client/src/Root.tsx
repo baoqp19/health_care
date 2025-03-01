@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAuthStore } from "./stores/auth/authStore";
 import { useAccount } from "./api/auth/me";
 import Loader from "./components/Loader";

@@ -1,20 +1,36 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import axios from "../../axios/axios-customize"
 
-export type GetMembersParams = {
-  page?: number;
-  size?: number;
-  keyword?: string;
+export type Member = {
+  memberID: number;
+  userID: number;
+  fullName: string;
+  dateOfBirth: string; // hoặc có thể dùng `Date` nếu muốn convert
+  gender: "MALE" | "FEMALE" | string;
+  relationship: string;
+  bloodType: string;
+  height: number;
+  weight: number;
 };
 
-type UseMembersProps = {
-  queryConfig?: object; // hoặc Partial<UseQueryOptions> nếu muốn chi tiết hơn
+export type GetMembersResponse = {
+  statusCode: number;
+  message: string;
+  data: Member[];
+};
+
+export type GetMembersParams = {
   page: number;
   size: number;
-  keyword: string;
-};
+  keyword?: string;
+}
 
-export const getMembers = async ({ page, size, keyword }: GetMembersParams) => {
+
+export type UseMembersProps = {
+  queryConfig?: object; // Có thể dùng Partial<UseQueryOptions>
+} & GetMembersParams;
+
+export const getMembers = async ({ page, size, keyword }: GetMembersParams): Promise<GetMembersResponse> => {
   const response = await axios.get(`/members`, {
     params: {
       page,

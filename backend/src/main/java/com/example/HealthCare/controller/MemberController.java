@@ -1,6 +1,7 @@
 package com.example.HealthCare.controller;
 
 import com.example.HealthCare.Util.SercurityUtil;
+import com.example.HealthCare.dto.PaginationDTO.ResultPaginationDTO;
 import com.example.HealthCare.model.Member;
 import com.example.HealthCare.model.User;
 import com.example.HealthCare.request.member.AddMemberRequest;
@@ -12,11 +13,14 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -76,14 +80,33 @@ public class MemberController {
         return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
-    @GetMapping("/members")
-    public ResponseEntity<List<Member>> getAllMember(
-    // @RequestParam(defaultValue = "1") int page,
-    // @RequestParam(defaultValue = "8") int size,
-    // @RequestParam(defaultValue = "") String keyword
-    ) {
-        List<Member> membersPage = this.memberService.getAllMember();
+    // @GetMapping("/members")
+    // public ResponseEntity<ResultPaginationDTO> getAllMember(
+    // @RequestParam("current") Optional<String> currentOptional,
+    // @RequestParam("pageSize") Optional<String> pageSizeOptional) {
 
-        return new ResponseEntity<>(membersPage, HttpStatus.OK);
+    // String sCurrent = currentOptional.isPresent() ? currentOptional.get() : "";
+    // String sPageSize = pageSizeOptional.isPresent() ? pageSizeOptional.get() :
+    // "";
+
+    // int current = Integer.parseInt(sCurrent);
+    // int pageSize = Integer.parseInt(sPageSize);
+
+    // Pageable pageable = PageRequest.of(current - 1, pageSize);
+
+    // return
+    // ResponseEntity.status(HttpStatus.OK).body(this.memberService.getAllMember(pageable));
+    // }
+
+    @GetMapping("/members")
+    public ResponseEntity<List<Member>> getAllMembers(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "8") int size,
+            @RequestParam(defaultValue = "") String keyword) {
+        Page<Member> membersPage = memberService.getAllMembers(page, size, keyword);
+
+        List<Member> membersContent = membersPage.getContent();
+
+        return new ResponseEntity<>(membersContent, HttpStatus.OK);
     }
 }

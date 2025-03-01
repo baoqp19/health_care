@@ -21,12 +21,12 @@ export const MemberTable = () => {
     <>
       <Table
         columns={columns}
-        dataSource={members}
+        dataSource={Array.isArray(members) ? members : []} // Đảm bảo `members` luôn là mảng
         size="middle"
         pagination={{
           current: page,
           pageSize: ROW_PER_PAGE,
-          total: members?.length || 0,
+          total: members?.data.length || 0,
           onChange: (newPage) => setPage(newPage),
         }}
         loading={isLoading}

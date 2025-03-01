@@ -10,29 +10,25 @@ type User = {
   lastName: string;
 };
 
-type ApiResponse = {
-  user: User;
-};
 
 
-
-export const getAccount = async (): Promise<ApiResponse> => {
-  const response: AxiosResponse<ApiResponse> = await axios.get(`/auth/account`);
+export const getAccount = async (): Promise<User> => {
+  const response: AxiosResponse<User> = await axios.get(`/auth/account`);
   console.log(response.data)
   return response.data;
 };
 
 
 export const useAccount = (
-  options: UseMutationOptions<ApiResponse, Error> = {}
+  options: UseMutationOptions<User, Error> = {}
 ) => {
   const { onSuccess, onError, ...restConfig } = options;
   const { setUser, setIsAuthenticated, setIsLoaded } = useAuthStore((state) => state);
 
-  return useMutation<ApiResponse, Error>({
+  return useMutation<User, Error>({
     mutationFn: getAccount,
     onSuccess: (data, ...args) => {
-      setUser(data.user);
+      setUser(data);
       setIsAuthenticated(true);
       setIsLoaded(true);
       onSuccess?.(data, ...args);
