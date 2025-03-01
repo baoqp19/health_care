@@ -100,6 +100,7 @@ public class SecurityConfiguration {
 		return jwtAuthenticationConverter;
 	}
 
+	
 	@Bean
 	public JwtEncoder jwtEncoder() {
 		return new NimbusJwtEncoder(new ImmutableSecret<>(getSecretKey()));
@@ -119,8 +120,6 @@ public class SecurityConfiguration {
 				getSecretKey()).macAlgorithm(SercurityUtil.JW_ALGORITHM).build();
 		return token -> {
 			try {
-				System.out.println("Token received: " + token);
-
 				return jwtDecoder.decode(token);
 			} catch (Exception e) {
 				System.out.println(">>> JWT error: " + e.getMessage());
