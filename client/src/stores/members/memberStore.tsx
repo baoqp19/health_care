@@ -3,23 +3,48 @@ import { create } from 'zustand';
 
 
 // Định nghĩa kiểu dữ liệu cho `Member`
-interface Member {
-  id: number;
-  email: string;
-  firstname: string;
-  lastname: string
+
+export interface Member {
+  memberID: number
+  fullName: string;
+  dateOfBirth: string;
+  gender: string;
+  relationship: string;
+  bloodType: string;
+  height: number;
+  weight: number;
 }
+
+
+export interface MemberUpdateProps {
+  fullName: string;
+  dateOfBirth: string;
+  gender: string;
+  relationship: string;
+  bloodType: string;
+  height: number;
+  weight: number;
+}
+
+// Định nghĩa kiểu dữ liệu cho hàm mutationFn
+export interface UpdateMemberParams {
+  memberID: number | null;
+  data: MemberUpdateProps;
+}
+
+
+
 
 // Định nghĩa kiểu dữ liệu cho store Zustand
 interface MembersStore {
-  members: Member[];
+  member: Member | null;
   isLoading: boolean;
   error: string | null;
   openCreateModal: boolean;
   openUpdateModal: boolean;
   openDeleteModal: boolean;
 
-  setMembers: (members: Member[]) => void;
+  setMembers: (member: Member) => void;
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;
   setOpenCreateModal: (open: boolean) => void;
@@ -29,17 +54,19 @@ interface MembersStore {
 
 // Tạo Zustand store với kiểu dữ liệu `MembersStore`
 export const useMembersStore = create<MembersStore>((set) => ({
-  members: [],
+  member: null,
   isLoading: false,
   error: null,
   openCreateModal: false,
   openUpdateModal: false,
   openDeleteModal: false,
 
-  setMembers: (members) => set({ members }),
+  setMembers: (member) => set({ member }),
   setLoading: (isLoading) => set({ isLoading }),
   setError: (error) => set({ error }),
   setOpenCreateModal: (openCreateModal) => set({ openCreateModal }),
   setOpenUpdateModal: (openUpdateModal) => set({ openUpdateModal }),
   setOpenDeleteModal: (openDeleteModal) => set({ openDeleteModal }),
+
+
 }));

@@ -1,10 +1,15 @@
 import { Button, Col, DatePicker, Flex, Form, Input, message, Modal, Row, Select } from "antd";
-import { useCreateMember } from "../../api/members/create-member";
+import {useCreateMember } from "../../api/members/create-member";
+import dayjs from "dayjs";
+import { Member } from "../../stores/members/memberStore";
+
+
 const { Option } = Select;
 type PropsCreate = {
   open: boolean,
   handleCancel?: () => void
 }
+
 
 const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
   const [form] = Form.useForm();
@@ -20,7 +25,10 @@ const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
     },
   });
 
-  const onFinish = (values: any) => {
+
+
+  const onFinish = (values: Member) => {
+    console.log(values)
     mutation?.mutate?.(values);
   };
 
@@ -47,8 +55,15 @@ const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
               label="Date of Birth"
               name="dateOfBirth"
               rules={[{ required: true, message: "Please select date of birth" }]}
+
+              getValueProps={(value) => ({
+                value: value ? dayjs(value, "YYYY-MM-DD") : null, // Chuyển string -> dayjs để hiển thị đúng trong form 
+              })}
+              getValueFromEvent={(date) =>
+                date ? date.format("YYYY-MM-DD") : "" // Chuyển dayjs -> string để lưu cho đúng định dạng
+              }
             >
-              <DatePicker placeholder="Select date of birth..." style={{ width: '100%' }} />
+              <DatePicker placeholder="Select date of birth..." style={{ width: '100%' }} format={"YYYY-MM-DD"} />
             </Form.Item>
           </Col>
         </Row>
@@ -60,9 +75,9 @@ const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
               rules={[{ required: true, message: "Please select gender" }]}
             >
               <Select placeholder="Select gender...">
-                <Option value="Male">Male</Option>
-                <Option value="Female">Female</Option>
-                <Option value="Other">Other</Option>
+                <Option value="MALE">MALE</Option>
+                <Option value="FEMALE">FEMALE</Option>
+                <Option value="ORTHER">ORTHER</Option>
               </Select>
             </Form.Item>
           </Col>

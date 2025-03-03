@@ -3,19 +3,14 @@ import { Button, message, Popconfirm, Space } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useDeleteMember } from "../../api/members/delete-member";
 import { ColumnType } from "antd/es/table";
+import { Member, useMembersStore } from "../../stores/members/memberStore";
 
-interface Member {
-    memberID: string;
-    fullName: string;
-    dateOfBirth: string;
-    gender: string;
-    relationship: string;
-    bloodType: string;
-    height: number;
-    weight: number;
-}
 
-const MemberTable = () => {
+const useMemberColumns = () => {
+
+    const { setOpenUpdateModal, setMembers } = useMembersStore((state) => state);
+    // const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useMembersStore((state) => state);
+
     const mutateDelete = useDeleteMember({
         onSuccess: () => {
             message.success("Delete member successfully");
@@ -25,11 +20,12 @@ const MemberTable = () => {
         },
     });
 
-    const handleEdit = (id: string) => {
-        console.log("Edit member with ID: ", id);
+    const handleEdit = (member: Member) => {
+        setMembers(member);
+        setOpenUpdateModal(true);
     };
 
-    const handleDelete = (id: any) => {
+    const handleDelete = (id: number) => {
         mutateDelete.mutate(id);
     };
 
@@ -83,7 +79,7 @@ const MemberTable = () => {
                 render: (_, member) => (
                     <Space>
                         <Button
-                            onClick={() => handleEdit(member.memberID)}
+                            onClick={() => handleEdit(member)}
                             icon={<EditOutlined />}
                         />
                         <Popconfirm
@@ -105,4 +101,4 @@ const MemberTable = () => {
     return columns;
 };
 
-export default MemberTable;
+export default useMemberColumns;

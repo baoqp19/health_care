@@ -11,6 +11,7 @@ import { useMembersStore } from "../../stores/members/memberStore";
 
 const MemberPage = () => {
   const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useMembersStore((state) => state);
+  
   const handleDeleteCancel = () => {
     setOpenDeleteModal(false);
   };

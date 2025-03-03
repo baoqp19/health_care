@@ -34,11 +34,15 @@ const MenuCustom: React.FC<MenuCustomProps> = ({ isMobile, onClose, theme = "lig
     }, [location.pathname, findItemByPath]);
 
     const handleMenuClick: MenuProps["onClick"] = useCallback(
+
         (e: { key: string }) => {
+            const menuItem = menuItems.find((item) => item.key === e.key);
+            if (!menuItem) return;
+            
             if (isMobile) {
                 onClose();
             }
-            navigate(e.key);
+            navigate(menuItem.path);
         },
         [isMobile, onClose, navigate]
     );
