@@ -5,6 +5,7 @@ import { Member } from "../../stores/members/memberStore";
 
 
 const { Option } = Select;
+
 type PropsCreate = {
   open: boolean,
   handleCancel?: () => void

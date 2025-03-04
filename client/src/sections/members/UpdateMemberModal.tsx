@@ -102,9 +102,9 @@ const UpdateMemberModal: React.FC<UpdateMemberModalProps> = ({ open, handleCance
               rules={[{ required: true, message: "Please select gender" }]}
             >
               <Select placeholder="Select gender...">
-                <Option value="Male">Male</Option>
-                <Option value="Female">Female</Option>
-                <Option value="Other">Other</Option>
+                <Option value="MALE">MALE</Option>
+                <Option value="FEMALE">FEMALE</Option>
+                <Option value="OTHER">OTHER</Option>
               </Select>
             </Form.Item>
           </Col>

@@ -1,15 +1,15 @@
 import { PlusSquareOutlined } from "@ant-design/icons";
-import { useAllergiesStore } from '../../stores/allergies/allergyStore';
-import { Button, Flex, Space } from 'antd';
-import PageHeader from '../../components/page-header';
-import ConfirmModal from '../../components/modals/ConfirmModal';
-import CreateAllergyModal from '../../sections/allergies/CreateAllergyModal';
-import UpdateAllergyModal from '../../sections/allergies/UpdateAllergyModal';
-import { AllergyTable } from '../../sections/allergies/AllergyTable';
+import { Button, Flex, Space } from "antd";
+import PageHeader from "../../components/page-header";
+import ConfirmModal from "../../components/modals/ConfirmModal";
+import { useMedicationsStore } from "../../stores/medications/medicationStore";
+import MedicationTable from "../../sections/medications/MedicationTable";
+import CreateMedicationModal from "../../sections/medications/CreateMedicationModal";
+import UpdateMedicationModal from "../../sections/medications/UpdateMedicationModal";
 
-const AllergyPage = () => {
+const MedicationPage = () => {
 
-    const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useAllergiesStore((state) => state);
+    const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useMedicationsStore((state) => state);
 
     const handleDeleteCancel = () => {
         setOpenDeleteModal(false);
@@ -27,13 +27,12 @@ const AllergyPage = () => {
         setOpenUpdateModal(false);
     };
 
-
     return (
         <>
             <Flex align="center" justify="space-between" className="mb-2">
                 <PageHeader
-                    heading="Allergies"
-                    links={[{ title: "DashBoard", href: "/manager" }, { title: "Allergy" }]}
+                    heading="Medications"
+                    links={[{ title: "DashBoard", href: "/manager" }, { title: "Medication" }]}
                 />
                 <Space>
                     <Button
@@ -46,26 +45,25 @@ const AllergyPage = () => {
                 </Space>
             </Flex>
             <div style={{ paddingTop: 20 }}>
-                <AllergyTable />
+                <MedicationTable />
             </div>
             <ConfirmModal
-                title={`Are you sure to delete allergy ?`}
+                title={`Are you sure to delete Medication ?`}
                 content={'Coming Soon'}
                 open={openDeleteModal}
                 handleCancel={handleDeleteCancel}
                 handleOk={() => { }}
             />
-            <CreateAllergyModal
+            <CreateMedicationModal
                 open={openCreateModal}
                 handleCancel={handleCreateCancel}
             />
-            <UpdateAllergyModal
+            <UpdateMedicationModal
                 open={openUpdateModal}
                 handleCancel={handleUpdateCancel}
-                selectedAllergy={null}
+                selectedMedication={null}
             />
         </>
-    )
-}
-
-export default AllergyPage
+    );
+};
+export default MedicationPage;
