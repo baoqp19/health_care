@@ -11,8 +11,8 @@ export type GetMembersResponse = {
 };
 
 export type GetMembersParams = {
-  page: number;
-  size: number;
+  page?: number;
+  size?: number;
   keyword?: string;
 }
 

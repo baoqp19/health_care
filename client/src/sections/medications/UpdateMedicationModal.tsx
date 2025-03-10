@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal, DatePicker, Row, Col, message } from "antd";
 import { Flex } from "antd";
 import { useEffect } from "react";
-import { Medication, MedicationUpdateProps, UpdateMedicationParams, useMedicationsStore } from "../../stores/medications/medicationStore";
+import { MedicationUpdateProps, UpdateMedicationParams, useMedicationsStore } from "../../stores/medications/medicationStore";
 import { useUpdateMedication } from "../../api/medication/update-medication";
 import dayjs from "dayjs";
 
@@ -13,6 +13,8 @@ interface UpdateMedicationModalProps {
   handleCancel: () => void;
   selectedMedication: UpdateMedicationParams | null;
 }
+
+
 
 const UpdateMedicationModal: React.FC<UpdateMedicationModalProps> = ({ open, handleCancel, selectedMedication }) => {
 

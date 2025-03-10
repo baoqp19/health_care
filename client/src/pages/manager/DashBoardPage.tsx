@@ -2,6 +2,7 @@ import { Layout } from "antd";
 
 const { Content } = Layout;
 
+
 const DashBoardPage = () => {
   return (
     <Content className="p-4 bg-gray-100">
@@ -12,5 +13,6 @@ const DashBoardPage = () => {
     </Content>
   );
 };
+
 
 export default DashBoardPage;

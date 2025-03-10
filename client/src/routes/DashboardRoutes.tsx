@@ -7,6 +7,7 @@ import { RouteObject } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AllergyPage from "../pages/manager/AllergyPage";
 import MedicationPage from "../pages/manager/MedicationPage";
+import VaccinationPage from "../pages/manager/VaccinationPage";
 
 const DashBoardPage = Loadable(React.lazy(() => import("../pages/manager/DashBoardPage")));
 const MemberPage = Loadable(React.lazy(() => import("../pages/manager/MemberPage")));
@@ -34,6 +35,10 @@ export const DashboardRoutes: RouteObject = {
         {
           path: 'medications',
           element: <PrivateRoute element={<MedicationPage />} />
+        },
+        {
+          path: 'vaccinations',
+          element: <PrivateRoute element={<VaccinationPage />} />
         }
       ],
     },

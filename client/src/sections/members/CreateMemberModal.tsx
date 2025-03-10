@@ -1,5 +1,5 @@
 import { Button, Col, DatePicker, Flex, Form, Input, message, Modal, Row, Select } from "antd";
-import {useCreateMember } from "../../api/members/create-member";
+import { useCreateMember } from "../../api/members/create-member";
 import dayjs from "dayjs";
 import { Member } from "../../stores/members/memberStore";
 
