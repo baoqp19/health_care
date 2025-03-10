@@ -1,17 +1,17 @@
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { Button, Flex, Space } from "antd";
-
+import { useEmergencyContactStore } from "../../stores/emergencyContacts/emergencyContactStore";
 import PageHeader from "../../components/page-header";
+import { EmergencyContactTable } from "../../sections/emergencyContacts/EmergencyContactTable";
 import ConfirmModal from "../../components/modals/ConfirmModal";
-import { MemberTable } from "../../sections/members/MemberTable";
-import CreateMemberModal from "../../sections/members/CreateMemberModal";
-import UpdateMemberModal from "../../sections/members/UpdateMemberModal";
-import { useMembersStore } from "../../stores/members/memberStore";
+import CreateEmergencyContactModal from "../../sections/emergencyContacts/CreateEmergencyContactModal";
+import UpdateEmergencyContactModal from "../../sections/emergencyContacts/UpdateEmergencyContactModal";
 
 
-const MemberPage = () => {
-  const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useMembersStore((state) => state);
-  
+
+const EmergencyContactPage = () => {
+  const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useEmergencyContactStore((state) => state);
+
   const handleDeleteCancel = () => {
     setOpenDeleteModal(false);
   };
@@ -32,8 +32,8 @@ const MemberPage = () => {
     <>
       <Flex align="center" justify="space-between" className="mb-2">
         <PageHeader
-          heading="Members"
-          links={[{ title: "DashBoard", href: "/manager" }, { title: "Member" }]}
+          heading="emergencyContacts"
+          links={[{ title: "DashBoard", href: "/emergencyContacts" }, { title: "EmergencyContact" }]}
         />
         <Space>
           <Button
@@ -46,25 +46,28 @@ const MemberPage = () => {
         </Space>
       </Flex>
       <div style={{ paddingTop: 20 }}>
-        <MemberTable />
+        <EmergencyContactTable />
       </div>
       <ConfirmModal
-        title={`Are you sure to delete Member ?`}
+        title={`Are you sure to delete emergency contact ?`}
         content={'Coming Soon'}
         open={openDeleteModal}
         handleCancel={handleDeleteCancel}
         handleOk={() => { }}
       />
-      <CreateMemberModal 
+
+      <CreateEmergencyContactModal
         open={openCreateModal}
         handleCancel={handleCreateCancel}
       />
-      <UpdateMemberModal
+
+      <UpdateEmergencyContactModal
         open={openUpdateModal}
         handleCancel={handleUpdateCancel}
-        selectedMember={null}
+        selectedContact={null}
       />
+
     </>
   );
 };
-export default MemberPage;
+export default EmergencyContactPage;

@@ -13,6 +13,8 @@ type PropsCreate = {
 
 
 const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
+
+  
   const [form] = Form.useForm();
 
   const mutation = useCreateMember({

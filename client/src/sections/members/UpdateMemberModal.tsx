@@ -77,7 +77,7 @@ const UpdateMemberModal: React.FC<UpdateMemberModalProps> = ({ open, handleCance
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
+            <Form.Item 
               label="Date of Birth"
               name="dateOfBirth"
               rules={[{ required: true, message: "Please select date of birth" }]}
