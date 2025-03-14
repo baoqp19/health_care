@@ -6,6 +6,7 @@ import { useLogin } from "../../api/auth/login";
 import { useAuthStore } from "../../stores/auth/authStore";
 import { useVerify } from "../../api/auth/verify";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 type PropsLogin = {
   email: string;
@@ -19,7 +20,7 @@ const LoginPage = () => {
   const queryParams = new URLSearchParams(location.search);
   const username = queryParams.get("username");
   const navigate = useNavigate();
-  
+
   const { user, isAuthenticated } = useAuthStore((state) => state);
 
   // Hook for verification based on username
@@ -38,7 +39,7 @@ const LoginPage = () => {
     if (username) {
       verifyMutation.mutate(username);
     }
-  }, [username]);
+  }, [username, verifyMutation]);
 
   console.log({
     user,
@@ -62,6 +63,8 @@ const LoginPage = () => {
     mutation.mutate(values);
   };
 
+  const { t } = useTranslation();
+
 
   return (
     <Space direction="vertical" className="p-10 w-full bg-white rounded-xl">
@@ -69,10 +72,10 @@ const LoginPage = () => {
         <img src={logo} alt="logo" className="w-24 mx-auto" />
       </Link>
       <Title level={4} className="text-center">
-        Welcome to <span className="text-1xl font-bold ml-2 text-green-600">FamilyHealth</span>
+        Welcome to <span className="text-1xl font-bold ml-2 text-green-600"> {t("LoginPage.Name")}</span>
       </Title>
       <Title level={3}>
-        Login
+        {t("LoginPage.Name")}
       </Title>
       <Form
         form={form}
@@ -93,11 +96,11 @@ const LoginPage = () => {
             },
           ]}
         >
-          <Input variant="filled" placeholder="Enter your email" />
+          <Input variant="filled" placeholder={t("LoginPage.EnterYourEmail")} />
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label={t("LoginPage.Password")}
           name="password"
           rules={[
             { required: true, message: "Please enter your password!" },
@@ -107,20 +110,20 @@ const LoginPage = () => {
             },
           ]}
         >
-          <Input.Password variant="filled" placeholder="Enter your password" />
+          <Input.Password variant="filled" placeholder={t("LoginPage.EnterYourPassword")} />
         </Form.Item>
         <Form.Item>
           <Button loading={mutation.isPending} type="primary" htmlType="submit" className="w-full">
-            Login
+            {t("LoginPage.Login")}
           </Button>
         </Form.Item>
       </Form>
       <p className="mb-2 flex justify-between items-center">
         <Link className="text-primary" to="/auth/forgot-password">
-          Forgot password
+          {t("LoginPage.ForgotPassword")}
         </Link>
         <Link className="text-primary ml-3" to="/auth/register">
-          Register
+          {t("LoginPage.Register")}
         </Link>
       </p>
     </Space>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Layout, Drawer, Grid, Space, Typography } from "antd";
 import MenuCustom from "./Menu";
 import logo from "../../assets/logo.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -55,10 +55,10 @@ const ResponsiveSider = ({ collapsed, setCollapsed }: ResponsiveSiderProps) => {
                         <Space
                             className="flex flex-col items-center justify-center p-4 cursor-pointer"
                             onClick={() => {
-                                navigate("/manager");
+                                navigate("/");
                             }}
                         >
-                            <img src={logo} className="w-14 h-14" />
+                            <img src={logo} onClick={() => { navigate("/") }} className="w-14 h-14" />
                             <Typography.Title level={4} color="text-green-600">
                                 FamilyHealth
                             </Typography.Title>

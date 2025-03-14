@@ -4,6 +4,8 @@ import logo from "../../assets/logo.png";
 import { Outlet, useNavigate } from "react-router-dom";
 import { GithubOutlined, TwitterOutlined, FacebookOutlined } from '@ant-design/icons';
 import { useAuthStore } from "../../stores/auth/authStore";
+import LanguageSwitcher from "../../components/languageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const { Header } = Layout;
 
@@ -14,6 +16,9 @@ const HomeLayout = () => {
 
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthStore();
+
+  const { t } = useTranslation();
+
   return (
     <Layout className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
       <Header className="flex justify-between items-center bg-white shadow-md">
@@ -29,6 +34,7 @@ const HomeLayout = () => {
         </div>
         <div>
           <Space>
+            <LanguageSwitcher />
             {isAuthenticated ? (
               <Button
                 type="primary"
@@ -43,7 +49,7 @@ const HomeLayout = () => {
                 className="bg-green-500 hover:bg-green-600 transition-colors duration-300"
                 onClick={() => navigate("/auth/login")}
               >
-                Login
+                {t("LandingPage.Login")}
               </Button>
             )}
           </Space>
