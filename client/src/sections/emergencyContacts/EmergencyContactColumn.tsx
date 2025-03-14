@@ -31,6 +31,7 @@ const useEmergencyContactColumns = () => {
 
   const columns = useMemo<ColumnType<Contact>[]>(
     () => [
+      
       {
         title: "#ID",
         dataIndex: "contactID",

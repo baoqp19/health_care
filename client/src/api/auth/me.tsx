@@ -28,9 +28,8 @@ export const useAccount = (
   return useMutation<User, Error>({
     mutationFn: getAccount,
     onSuccess: (data, ...args) => {
+      setIsLoaded(true)
       setUser(data);
-      setIsAuthenticated(true);
-      setIsLoaded(true);
       onSuccess?.(data, ...args);
     },
     onError: (error, ...args) => {

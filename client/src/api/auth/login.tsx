@@ -2,11 +2,8 @@ import { useMutation, } from "@tanstack/react-query";
 import axios from "../../axios/axios-customize"
 import { useAuthStore } from "../../stores/auth/authStore";
 
-
-
-
-
 export const login = async ({ email, password }: any) => {
+
     const response = await axios.post("/auth/login", {
         email,
         password,
@@ -15,6 +12,7 @@ export const login = async ({ email, password }: any) => {
     const result = response.data
     console.log(result)
     return result; // Lấy dữ liệu từ response
+
 };
 
 interface LoginResponse {

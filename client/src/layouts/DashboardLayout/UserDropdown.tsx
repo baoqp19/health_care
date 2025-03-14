@@ -26,12 +26,13 @@ const UserDropdown = () => {
             label: "Logout",
             icon: <LogoutOutlined />,
             onClick: () => {
-                localStorage.removeItem("refresh_token");
                 useAuthStore.getState().clearUser(); // Gọi `clearUser()`
                 window.location.href = "/auth/login"; // Điều hướng về trang login
             },
         }
     ];
+
+
     return (
         <Dropdown
             menu={{

@@ -27,6 +27,7 @@ const MenuCustom: React.FC<MenuCustomProps> = ({ isMobile, onClose, theme = "lig
             }
         }
     }, []);
+    
 
     const selectedKeys = useMemo(() => {
         const item = findItemByPath(menuItems, location.pathname);

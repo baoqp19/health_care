@@ -19,11 +19,14 @@ interface AuthState {
 
 
 export const useAuthStore = create<AuthState>((set) => ({
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem("access_token"), // double NOT ép kiểu về true false
   isLoaded: false,
   user: null,
   setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
   setIsLoaded: (isLoaded) => set({ isLoaded }),
   setUser: (user) => set({ user }),
-  clearUser: () => set({ user: null, isAuthenticated: false, isLoaded: true }),
+  clearUser: () => {
+    localStorage.removeItem("access_token"); // Xóa token
+    set({ user: null, isAuthenticated: false, isLoaded: true });
+  }
 }));
