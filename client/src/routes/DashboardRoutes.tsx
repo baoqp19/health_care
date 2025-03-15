@@ -12,7 +12,7 @@ const MemberPage = Loadable(React.lazy(() => import("../pages/manager/MemberPage
 const AllergyPage = Loadable(React.lazy(() => import('../pages/manager/AllergyPage')));
 const MedicationPage = Loadable(React.lazy(() => import('../pages/manager/MedicationPage')));
 const EmergencyContactPage = Loadable(React.lazy(() => import('../pages/manager/EmergencyContactPage')));
-
+const HelpPage = Loadable(React.lazy(() => import('../pages/manager/HelpPage')));
 
 export const DashboardRoutes: RouteObject = {
 
@@ -45,6 +45,10 @@ export const DashboardRoutes: RouteObject = {
           path: 'emergencyContacts',
           element: <PrivateRoute element={<EmergencyContactPage />} />
         },
+        {
+          path: 'help-support', 
+          element: <PrivateRoute element={<HelpPage />} />
+        }
       ],
     },
   ],
