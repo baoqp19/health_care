@@ -7,6 +7,7 @@ import {
 import { Header } from "antd/es/layout/layout";
 import UserDropdown from "./UserDropdown";
 import React from "react";
+import LanguageSwitcher from "../../components/languageSwitcher";
 
 type HeaderLayoutProps = {
     collapsed: boolean;
@@ -28,6 +29,7 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({ collapsed, setCollapsed }) 
                 />
             </Space>
             <Space>
+                <LanguageSwitcher />
                 <UserDropdown />
             </Space>
         </Header>

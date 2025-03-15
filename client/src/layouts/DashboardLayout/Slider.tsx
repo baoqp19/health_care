@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Layout, Drawer, Grid, Space, Typography } from "antd";
 import MenuCustom from "./Menu";
 import logo from "../../assets/logo.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -12,7 +12,7 @@ type ResponsiveSiderProps = {
     collapsed: boolean;
     setCollapsed: (collapsed: boolean) => void;
 };
-
+ 
 
 const ResponsiveSider = ({ collapsed, setCollapsed }: ResponsiveSiderProps) => {
 
