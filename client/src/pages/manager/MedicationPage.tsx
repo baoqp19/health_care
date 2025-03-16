@@ -6,64 +6,67 @@ import { useMedicationsStore } from "../../stores/medications/medicationStore";
 import MedicationTable from "../../sections/medications/MedicationTable";
 import CreateMedicationModal from "../../sections/medications/CreateMedicationModal";
 import UpdateMedicationModal from "../../sections/medications/UpdateMedicationModal";
+import { useTranslation } from "react-i18next";
 
 const MedicationPage = () => {
 
-    const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useMedicationsStore((state) => state);
+  const { t } = useTranslation();
 
-    const handleDeleteCancel = () => {
-        setOpenDeleteModal(false);
-    };
+  const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useMedicationsStore((state) => state);
 
-    const handleCreate = () => {
-        setOpenCreateModal(true);
-    };
+  const handleDeleteCancel = () => {
+    setOpenDeleteModal(false);
+  };
 
-    const handleCreateCancel = () => {
-        setOpenCreateModal(false);
-    };
+  const handleCreate = () => {
+    setOpenCreateModal(true);
+  };
 
-    const handleUpdateCancel = () => {
-        setOpenUpdateModal(false);
-    };
+  const handleCreateCancel = () => {
+    setOpenCreateModal(false);
+  };
 
-    return (
-        <>
-            <Flex align="center" justify="space-between" className="mb-2">
-                <PageHeader
-                    heading="Medications"
-                    links={[{ title: "DashBoard", href: "/manager" }, { title: "Medication" }]}
-                />
-                <Space>
-                    <Button
-                        onClick={handleCreate}
-                        type="primary"
-                        icon={<PlusSquareOutlined />}
-                    >
-                        Add
-                    </Button>
-                </Space>
-            </Flex>
-            <div style={{ paddingTop: 20 }}>
-                <MedicationTable />
-            </div>
-            <ConfirmModal
-                title={`Are you sure to delete Medication ?`}
-                content={'Coming Soon'}
-                open={openDeleteModal}
-                handleCancel={handleDeleteCancel}
-                handleOk={() => { }}
-            />
-            <CreateMedicationModal
-                open={openCreateModal}
-                handleCancel={handleCreateCancel}
-            />
-            <UpdateMedicationModal
-                open={openUpdateModal}
-                handleCancel={handleUpdateCancel}
-                selectedMedication={null}
-            />
-        </>
-    );
+  const handleUpdateCancel = () => {
+    setOpenUpdateModal(false);
+  };
+
+  return (
+    <>
+      <Flex align="center" justify="space-between" className="mb-2">
+        <PageHeader
+          heading={t("Medications")}
+          links={[{ title: t("Dashboard"), href: "/manager" }, { title: t("Medications") }]}
+        />
+        <Space>
+          <Button
+            onClick={handleCreate}
+            type="primary"
+            icon={<PlusSquareOutlined />}
+          >
+            Add
+          </Button>
+        </Space>
+      </Flex>
+      <div style={{ paddingTop: 20 }}>
+        <MedicationTable />
+      </div>
+      <ConfirmModal
+        title={`Are you sure to delete Medication ?`}
+        content={'Coming Soon'}
+        open={openDeleteModal}
+        handleCancel={handleDeleteCancel}
+        handleOk={() => { }}
+      />
+      <CreateMedicationModal
+        open={openCreateModal}
+        handleCancel={handleCreateCancel}
+      />
+      <UpdateMedicationModal
+        open={openUpdateModal}
+        handleCancel={handleUpdateCancel}
+        selectedMedication={null}
+      />
+    </>
+  );
 };
 export default MedicationPage;

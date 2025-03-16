@@ -4,9 +4,12 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useDeleteMedication } from "../../api/medication/delete-medication";
 import { Medication, useMedicationsStore } from "../../stores/medications/medicationStore";
 import { ColumnType } from "antd/es/table";
+import { useTranslation } from "react-i18next";
 
 
 const useMedicationColumns = () => {
+
+  const { t } = useTranslation();
 
   const { setOpenUpdateModal, setMedication } = useMedicationsStore((state) => state);
 
@@ -31,41 +34,41 @@ const useMedicationColumns = () => {
   const columns = useMemo<ColumnType<Medication>[]>(
     () => [
       {
-        title: "#ID",
+        title: t("ID"),
         dataIndex: "medicationID",
         key: "medicationID",
         align: "center",
       },
       {
-        title: "Medication Name",
+        title: t("MedicationPage.Medication Name"),
         dataIndex: "name",
         key: "name",
         align: "center",
       },
       {
-        title: "Frequency",
+        title: t("MedicationPage.Frequency"),
         dataIndex: "frequency",
         key: "frequency",
       },
       {
-        title: "Start Date",
+        title: t("MedicationPage.Start Date"),
         dataIndex: "startDate",
         key: "startDate",
       },
       {
-        title: "End Date",
+        title: t("MedicationPage.End Date"),
         dataIndex: "endDate",
         key: "endDate",
         render: (text: string | null) => text || "None",
       },
       {
-        title: "Note",
+        title: t("MedicationPage.Note"),
         dataIndex: "note",
         key: "note",
         render: (text: string | null) => text || "None",
       },
       {
-        title: "Action",
+        title: t("Action"),
         key: "action",
         render: (_, medication) => (
           <Space>

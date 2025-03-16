@@ -45,7 +45,7 @@ export const DashboardRoutes: RouteObject = {
           element: <PrivateRoute element={<VaccinationPage />} />
         },
         {
-          path: 'emergencyContacts',
+          path: 'emergency-contacts',
           element: <PrivateRoute element={<EmergencyContactPage />} />
         },
         {

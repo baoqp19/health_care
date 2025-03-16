@@ -6,8 +6,11 @@ import ConfirmModal from '../../components/modals/ConfirmModal';
 import CreateAllergyModal from '../../sections/allergies/CreateAllergyModal';
 import UpdateAllergyModal from '../../sections/allergies/UpdateAllergyModal';
 import { AllergyTable } from '../../sections/allergies/AllergyTable';
+import { useTranslation } from "react-i18next";
 
 const AllergyPage = () => {
+
+    const { t } = useTranslation();
 
     const { openDeleteModal, openCreateModal, openUpdateModal, setOpenDeleteModal, setOpenCreateModal, setOpenUpdateModal } = useAllergiesStore((state) => state);
 
@@ -32,8 +35,8 @@ const AllergyPage = () => {
         <>
             <Flex align="center" justify="space-between" className="mb-2">
                 <PageHeader
-                    heading="Allergies"
-                    links={[{ title: "DashBoard", href: "/manager" }, { title: "Allergy" }]}
+                    heading={t("Allergies")}
+                    links={[{ title: t("Dashboard"), href: "/manager" }, { title: t("Allergies") }]}
                 />
                 <Space>
                     <Button

@@ -2,6 +2,7 @@ import { Button, Col, DatePicker, Flex, Form, Input, message, Modal, Row, Select
 import { useCreateMember } from "../../api/members/create-member";
 import dayjs from "dayjs";
 import { Member } from "../../stores/members/memberStore";
+import { useTranslation } from "react-i18next";
 
 
 const { Option } = Select;
@@ -14,7 +15,8 @@ type PropsCreate = {
 
 const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
 
-  
+  const { t } = useTranslation();
+
   const [form] = Form.useForm();
 
   const mutation = useCreateMember({
@@ -37,7 +39,7 @@ const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
 
   return (
     <Modal
-      title="Create Member"
+      title={t("MemberPage.CreateMember")}
       open={open}
       onCancel={handleCancel}
       footer={null}
@@ -48,7 +50,7 @@ const CreateMemberModal = ({ open, handleCancel }: PropsCreate) => {
             <Form.Item
               label="Full Name"
               name="fullName"
-              rules={[{ required: true, message: "Please enter full name" }]}
+              rules={[{ required: true, message: t("EnterFullName") }]}
             >
               <Input placeholder="Enter full name..." />
             </Form.Item>

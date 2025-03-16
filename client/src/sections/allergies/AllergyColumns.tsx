@@ -4,8 +4,12 @@ import { Allergy, useAllergiesStore } from "../../stores/allergies/allergyStore"
 import { useDeleteAllergy } from "../../api/allergies/delete-allergy";
 import { useMemo } from "react";
 import { ColumnType } from "antd/es/table";
+import { useTranslation } from "react-i18next";
 
 const useAllergyColumns = () => {
+
+    const { t } = useTranslation();
+
     const { setOpenUpdateModal, setAllergy } = useAllergiesStore(
         (state) => state
     );
@@ -31,35 +35,35 @@ const useAllergyColumns = () => {
     const columns = useMemo<ColumnType<Allergy>[]>(
         () => [
             {
-                title: "#ID",
+                title: t("ID"),
                 dataIndex: "allergyID",
                 key: "allergyID",
                 align: "center",
             },
             {
-                title: "#MemberID",
+                title: t("AllergyPage.MemberID"),
                 dataIndex: "memberID",
                 key: "memberID",
                 align: "center",
             },
             {
-                title: "Allergy Type",
+                title: t("AllergyPage.AllergyType"),
                 dataIndex: "allergyType",
                 key: "allergyType",
                 align: "center",
             },
             {
-                title: "Severity",
+                title: t("AllergyPage.Severity"),
                 dataIndex: "severity",
                 key: "severity",
             },
             {
-                title: "Symptoms",
+                title: t("AllergyPage.Symptoms"),
                 dataIndex: "symptoms",
                 key: "symptoms",
             },
             {
-                title: "Action",
+                title: t("Action"),
                 key: "action",
                 render: (_, allergy) => (
                     <Space>
