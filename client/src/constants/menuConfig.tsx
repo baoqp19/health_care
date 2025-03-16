@@ -83,7 +83,13 @@ const MenuConfig = () => {
             icon: <QuestionCircleOutlined />,
             label: t("Help & Support"),
             path: "/manager/help-support",
-        }
+        },
+        {
+            key: "12",
+            icon: <FileTextOutlined />,
+            label: t("Document"),
+            path: "/manager/documents",
+        },
     ];
     return menuItems;
 }

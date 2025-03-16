@@ -86,8 +86,10 @@ public class DocumentController {
             @RequestParam(defaultValue = "8") int size,
             @RequestParam(defaultValue = "") String keyword) {
 
-        Page<Document> documentsPage = this.documentService.getAllDocuments(page,size,keyword);
+        String email = SercurityUtil.getCurrentUserLogin().isPresent() ? SercurityUtil.getCurrentUserLogin().get() : "";
+        User user = this.userService.handleGetUserByEmail(email);
 
+        Page<Document> documentsPage = documentService.getAllDocuments(page,size,keyword,user.getId());
         List<Document> documents = documentsPage.getContent();
 
         return new ResponseEntity<>(documents, HttpStatus.OK);

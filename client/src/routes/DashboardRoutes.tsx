@@ -14,6 +14,9 @@ const MedicationPage = Loadable(React.lazy(() => import('../pages/manager/Medica
 const EmergencyContactPage = Loadable(React.lazy(() => import('../pages/manager/EmergencyContactPage')));
 const HelpPage = Loadable(React.lazy(() => import('../pages/manager/HelpPage')));
 
+const MedicalRecordPage = Loadable(React.lazy(() => import('../pages/manager/MedicalRecordPage')));
+const DocumentPage = Loadable(React.lazy(() => import('../pages/manager/DocumentPage')));
+
 export const DashboardRoutes: RouteObject = {
 
   children: [
@@ -46,9 +49,17 @@ export const DashboardRoutes: RouteObject = {
           element: <PrivateRoute element={<EmergencyContactPage />} />
         },
         {
-          path: 'help-support', 
+          path: 'help-support',
           element: <PrivateRoute element={<HelpPage />} />
-        }
+        },
+        {
+          path: 'medical-records',
+          element: <PrivateRoute element={<MedicalRecordPage />} />
+        },
+        {
+          path: 'documents',
+          element: <PrivateRoute element={<DocumentPage />} />
+        },
       ],
     },
   ],
