@@ -1,12 +1,14 @@
 
 
-import { Button, Form, Input, Modal, Select, Row, Col, message, DatePicker } from "antd";
+import { Button, Form, Input, Modal, Select, Row, Col, message, DatePicker, Upload } from "antd";
 import { Flex } from "antd";
-import { Document, useDocumentsStore } from "../../stores/documents/documentStore";
+import { Document, Document1, useDocumentsStore } from "../../stores/documents/documentStore";
 import { useCreateDocument } from "../../api/documents/create-documents";
 import dayjs from "dayjs";
+import moment from "moment";
+import { UploadOutlined } from "@ant-design/icons";
+import { fileExtensions } from "./FileExtensions";
 
-const { Option } = Select;
 
 
 type PropsCreate = {
@@ -30,10 +32,50 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
     },
   });
 
-  const onFinish = (values: Document) => {
-    mutation.mutate(values);
+
+  const handleFileChange = (info: { fileList: any[] }) => {
+    const file = info.fileList[0].originFileObj;
+    if (file && file.size > 0) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (!e.target) {
+          message.error("Error reading file.");
+          return;
+        }
+        const fileContent = e.target.result as string;
+        const formattedDate = moment(file.lastModifiedDate);
+        const fileInfo = {
+          fileName: file.name,
+          fileType: file.type || "Unknown",
+          fileContent: fileContent.substring(0, 50) + "...",
+          uploadDate: formattedDate,
+        };
+
+        form.setFieldsValue({
+          fileName: fileInfo.fileName,
+          fileType: fileInfo.fileType,
+          fileContent: fileInfo.fileContent,
+          uploadDate: fileInfo.uploadDate,
+        });
+        message.success(`${file.name} uploaded successfully.`);
+      };
+
+      reader.onerror = () => {
+        message.error("Error while reading file");
+      };
+
+      reader.readAsText(file);
+    }
   };
 
+  const onFinish = (values: Document1) => {
+    const { uploadFile, ...filteredValues } = values;
+    const formattedValues = {
+      ...filteredValues,
+    };
+    mutation.mutate(formattedValues);
+  };
   return (
     <Modal
       title="Add document"
@@ -77,7 +119,12 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
                 { required: true, message: "Please choose type of file" },
               ]}
             >
-              <Input placeholder="Choose type of file..." />
+              <Select
+                showSearch
+                placeholder="Select a file type..."
+                optionFilterProp="label"
+                options={fileExtensions}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -110,6 +157,17 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
               />
             </Form.Item>
           </Col>
+          <Col span={12}>
+            <Form.Item label="Using file" name="uploadFile">
+              <Upload
+                maxCount={1}
+                beforeUpload={() => false}
+                onChange={handleFileChange}
+              >
+                <Button icon={<UploadOutlined />}>Upload File</Button>
+              </Upload>
+            </Form.Item>
+          </Col>
         </Row>
         <Form.Item className="pt-4 m-0">
           <Flex justify="end" className="gap-3">
@@ -127,22 +185,4 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
 };
 
 export default CreateDocumentModal;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

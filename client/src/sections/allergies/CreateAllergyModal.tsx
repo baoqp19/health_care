@@ -2,8 +2,11 @@ import { Button, Form, Input, Modal, Select, Row, Col, message } from "antd";
 import { Flex } from "antd";
 import { Allergy, useAllergiesStore } from "../../stores/allergies/allergyStore";
 import { useCreateAllergy } from "../../api/allergies/create-allergy";
+import { useMembers } from "../../api/members/get-members";
+import { useMemo } from "react";
 
 const { Option } = Select;
+
 
 type PropsCreate = {
     open: boolean,
@@ -12,9 +15,24 @@ type PropsCreate = {
 
 const CreateAllergyModal = ({ open, handleCancel }: PropsCreate) => {
 
+    const { data: members } = useMembers({});
+
     const [form] = Form.useForm();
 
     const { openCreateModal, setOpenCreateModal } = useAllergiesStore();
+
+    const membersArray = Array.isArray(members) ? members : [];
+
+    const memberOptions = useMemo(() => {
+        return membersArray
+            ? membersArray.map(({ memberID, fullName }) => ({
+                value: memberID,
+                label: `${fullName}`,
+            }))
+            : [];
+    }, [membersArray]);
+
+
 
     const mutation = useCreateAllergy({
         onSuccess: () => {
@@ -72,11 +90,17 @@ const CreateAllergyModal = ({ open, handleCancel }: PropsCreate) => {
                     </Col>
                     <Col span={12}>
                         <Form.Item
-                            label="MemberId"
+                            label="Member"
                             name="memberID"
-                            rules={[{ required: true, message: "Please enter memberId" }]}
+                            rules={[{ required: true, message: "Please choose a member" }]}
                         >
-                            <Input placeholder="Enter memberId..." />
+                            <Select
+                                showSearch
+                                placeholder="Choose a member..."
+                                optionFilterProp="label"
+                                options={memberOptions}
+                                notFoundContent="Loading members..."
+                            />
                         </Form.Item>
                     </Col>
                 </Row>

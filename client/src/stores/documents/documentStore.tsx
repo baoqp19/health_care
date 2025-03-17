@@ -9,6 +9,17 @@ export interface Document {
     uploadDate: string
 }
 
+export interface Document1 {
+
+    documentID: number
+    recordID: number
+    fileName: string
+    fileType: string
+    uploadFile: string
+    fileContent: string
+    uploadDate: string
+}
+
 
 export interface DocumentUpdateProps {
     recordID: number

@@ -4,6 +4,7 @@ import { ROW_PER_PAGE } from "../../config/constants";
 import { useState } from "react";
 import { useMedicalrecords } from "../../api/medicalRecords/get-medical-records";
 import useMedicalRecordColumns from "./MedicalRecordColumns";
+import { useMembers } from "../../api/members/get-members";
 
 export const MedicalRecordTable = () => {
   const columns = useMedicalRecordColumns();
@@ -16,11 +17,28 @@ export const MedicalRecordTable = () => {
     keyword,
   });
 
+  const { data: members } = useMembers({})
+  const memberMap = Array.isArray(members)
+    ?
+    members.reduce((map, member) => {
+      map[member.memberID] = member.fullName;
+      return map;
+    }, {})
+    : {};
+
+  const dataSource = Array.isArray(medicalRecords)
+    ? medicalRecords.map(medicaReocrd => ({
+      ...medicaReocrd,
+      memberName: memberMap[medicaReocrd.memberID] || "",
+    }))
+    : [];
+
+
   return (
     <>
       <Table
         columns={columns}
-        dataSource={Array.isArray(medicalRecords) ? medicalRecords : []}
+        dataSource={dataSource}
         size="middle"
         pagination={{
           current: page,

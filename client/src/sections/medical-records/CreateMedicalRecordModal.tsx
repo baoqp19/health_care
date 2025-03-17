@@ -3,6 +3,8 @@ import { Flex } from "antd";
 import { MedicalRecord, useMedicalRecordsStore } from "../../stores/medical-records/medicalRecordStore";
 import { useCreateMedicalRecord } from "../../api/medicalRecords/create-medical-records";
 import dayjs from "dayjs";
+import { useMembers } from "../../api/members/get-members";
+import { useMemo } from "react";
 const { Option } = Select;
 
 type PropsCreate = {
@@ -13,6 +15,18 @@ type PropsCreate = {
 
 const CreateMedicalRecordModal = ({ open, handleCancel }: PropsCreate) => {
   const [form] = Form.useForm();
+
+  const { data: members } = useMembers({})
+  const membersArray = Array.isArray(members) ? members : [];
+
+  const memberOptions = useMemo(() => {
+    return membersArray
+      ? membersArray.map(({ memberID, fullName }) => ({
+        value: memberID,
+        label: `${fullName}`,
+      }))
+      : [];
+  }, [membersArray]);
 
   const { openCreateModal, setOpenCreateModal } = useMedicalRecordsStore();
 
@@ -43,11 +57,17 @@ const CreateMedicalRecordModal = ({ open, handleCancel }: PropsCreate) => {
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
-              label="Member ID"
+              label="Member"
               name="memberID"
-              rules={[{ required: true, message: "Please enter member id" }]}
+              rules={[{ required: true, message: "Please choose a member" }]}
             >
-              <Input placeholder="Enter member id..." />
+              <Select
+                showSearch
+                placeholder="Choose a member..."
+                optionFilterProp="label"
+                options={memberOptions}
+                notFoundContent="Loading members..."
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -61,8 +81,6 @@ const CreateMedicalRecordModal = ({ open, handleCancel }: PropsCreate) => {
               getValueFromEvent={(date) =>
                 date ? date.format("YYYY-MM-DD") : "" // Chuyển dayjs -> string để lưu cho đúng định dạng
               }
-
-
             >
               <DatePicker placeholder="Select date..." style={{ width: '100%' }} />
             </Form.Item>

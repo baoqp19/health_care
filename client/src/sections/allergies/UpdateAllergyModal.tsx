@@ -1,8 +1,9 @@
-import { Button, Form, Input, Modal, Row, Col, message } from "antd";
+import { Button, Form, Input, Modal, Row, Col, message, Select } from "antd";
 import { Flex } from "antd";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Allergy, UpdateAllergyProps, useAllergiesStore } from "../../stores/allergies/allergyStore";
 import { useUpdateAllergy } from "../../api/allergies/update-allergy";
+import { useMembers } from "../../api/members/get-members";
 
 
 // Định nghĩa kiểu dữ liệu cho props
@@ -14,10 +15,25 @@ interface UpdateAllergyModalProps {
 
 const UpdateAllergyModal: React.FC<UpdateAllergyModalProps> = ({ open, handleCancel, selectedAllergy }) => {
 
-  const [form] = Form.useForm();
   const { openUpdateModal, setOpenUpdateModal, allergy } = useAllergiesStore(
     (state) => state
   );
+
+  const [form] = Form.useForm();
+
+  const { data: members } = useMembers({});
+
+  const membersArray = Array.isArray(members) ? members : [];
+
+  const memberOptions = useMemo(() => {
+    return membersArray
+      ? membersArray.map(({ memberID, fullName }) => ({
+        value: memberID,
+        label: `${fullName}`,
+      }))
+      : [];
+  }, [membersArray]);
+
 
   const mutation = useUpdateAllergy({
     onSuccess: () => {
@@ -65,11 +81,17 @@ const UpdateAllergyModal: React.FC<UpdateAllergyModalProps> = ({ open, handleCan
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
-              label="MemberId"
+              label="Member"
               name="memberID"
-              rules={[{ required: true, message: "Please enter memberId" }]}
+              rules={[{ required: true, message: "Please choose a member" }]}
             >
-              <Input placeholder="Enter memberId..." />
+              <Select
+                showSearch
+                placeholder="Choose a member..."
+                optionFilterProp="label"
+                options={memberOptions}
+                notFoundContent="Loading members..."
+              />
             </Form.Item>
           </Col>
           <Col span={12}>

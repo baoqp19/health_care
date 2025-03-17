@@ -22,6 +22,11 @@ export const DocumentTable = () => {
 				columns={columns}
 				dataSource={Array.isArray(documents) ? documents : []} // 
 				size="middle"
+				onRow={(item) => {
+					return {
+						onDoubleClick: () => console.log(item)
+					}
+				}}
 				pagination={{
 					current: page,
 					pageSize: ROW_PER_PAGE,

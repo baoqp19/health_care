@@ -1,12 +1,10 @@
 import { Button, Form, Input, Modal, Select, Row, DatePicker, Col, message } from "antd";
 import { Flex } from "antd";
-import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { MedicalRecord, UpdateMedicalRecordParams, useMedicalRecordsStore } from "../../stores/medical-records/medicalRecordStore";
 import { useUpdateMedicalRecord } from "../../api/medicalRecords/update-medical-records";
 import dayjs from "dayjs";
-
-const { Option } = Select;
+import { useMembers } from "../../api/members/get-members";
 
 interface UpdateMedicalRecordModalProps {
   open: boolean;
@@ -20,6 +18,19 @@ interface UpdateMedicalRecordModalProps {
 const UpdateMedicalRecordModal: React.FC<UpdateMedicalRecordModalProps> = ({ open, handleCancel, selectedMedicalRecord }) => {
   const [form] = Form.useForm();
   const { openUpdateModal, setOpenUpdateModal, medicalRecord } = useMedicalRecordsStore((state) => state);
+
+  const { data: members } = useMembers({})
+
+  const membersArray = Array.isArray(members) ? members : [];
+
+  const memberOptions = useMemo(() => {
+    return membersArray
+      ? membersArray.map(({ memberID, fullName }) => ({
+        value: memberID,
+        label: `${fullName}`,
+      }))
+      : [];
+  }, [membersArray]);
 
   const mutation = useUpdateMedicalRecord({
     onSuccess: () => {
@@ -60,11 +71,17 @@ const UpdateMedicalRecordModal: React.FC<UpdateMedicalRecordModalProps> = ({ ope
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
-              label="Member ID"
+              label="Member "
               name="memberID"
-              rules={[{ required: true, message: "Please enter member id" }]}
+              rules={[{ required: true, message: "Please choose a member " }]}
             >
-              <Input placeholder="Enter member id..." />
+              <Select
+                showSearch
+                placeholder="Choose a member..."
+                optionFilterProp="label"
+                options={memberOptions}
+                notFoundContent="Loading members..."
+              />
             </Form.Item>
           </Col>
           <Col span={12}>

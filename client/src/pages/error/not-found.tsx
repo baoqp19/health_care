@@ -14,7 +14,7 @@ const NotFoundPage = () => {
           extra={
             <Button
               type="primary"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/manager")}
             >
               Back Home
             </Button>
