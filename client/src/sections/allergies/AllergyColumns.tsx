@@ -84,7 +84,7 @@ const useAllergyColumns = () => {
                 ),
             },
         ],
-        []
+        [t]
     );
 
     return columns

@@ -26,39 +26,47 @@ export const DashboardRoutes: RouteObject = {
       children: [
         {
           path: "",
-          element: <PrivateRoute element={<DashBoardPage />} />,
+          element: <DashBoardPage />
         },
         {
           path: 'members',
-          element: <PrivateRoute element={<MemberPage />} />,
+          // element: <PrivateRoute element={<MemberPage />} />,
+          element: <MemberPage />
         },
         {
           path: 'allergies',
-          element: <PrivateRoute element={<AllergyPage />} />
+          // element: <PrivateRoute element={<AllergyPage />} />
+          element: <AllergyPage />
         },
         {
           path: 'medications',
-          element: <PrivateRoute element={<MedicationPage />} />
+          // element: <PrivateRoute element={<MedicationPage />} />
+          element: <MedicationPage />
         },
         {
           path: 'vaccinations',
-          element: <PrivateRoute element={<VaccinationPage />} />
+          // element: <PrivateRoute element={<VaccinationPage />} />
+          element: <VaccinationPage />
         },
         {
           path: 'emergency-contacts',
-          element: <PrivateRoute element={<EmergencyContactPage />} />
+          // element: <PrivateRoute element={<EmergencyContactPage />} />
+          element: <EmergencyContactPage />
         },
         {
-          path: 'help-support', 
-          element: <PrivateRoute element={<HelpPage />} />
+          path: 'help-support',
+          // element: <PrivateRoute element={<HelpPage />} />
+          element: <HelpPage />
         },
         {
-          path: 'medical-records', 
-          element: <PrivateRoute element={<MedicalRecordPage />} />
+          path: 'medical-records',
+          // element: <PrivateRoute element={<MedicalRecordPage />} />
+          element: <MedicalRecordPage />
         },
         {
-          path: 'documents', 
-          element: <PrivateRoute element={<DocumentPage />} />
+          path: 'documents',
+          // element: <PrivateRoute element={<DocumentPage />} />
+          element: <DocumentPage />
         },
       ],
     },

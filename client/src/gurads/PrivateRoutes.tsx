@@ -15,4 +15,4 @@ const PrivateRoute = ({ element }: { element: JSX.Element }) => {
 
 }
 
-export default PrivateRoute
+export default PrivateRoute 

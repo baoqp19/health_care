@@ -91,7 +91,7 @@ const useEmergencyContactColumns = () => {
         ),
       },
     ],
-    []
+    [t]
   );
   return columns
 };

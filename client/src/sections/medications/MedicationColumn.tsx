@@ -92,7 +92,7 @@ const useMedicationColumns = () => {
         ),
       },
     ],
-    []
+    [t]
   );
   return columns
 };
