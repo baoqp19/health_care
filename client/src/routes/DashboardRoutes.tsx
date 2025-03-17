@@ -49,15 +49,15 @@ export const DashboardRoutes: RouteObject = {
           element: <PrivateRoute element={<EmergencyContactPage />} />
         },
         {
-          path: 'help-support',
+          path: 'help-support', 
           element: <PrivateRoute element={<HelpPage />} />
         },
         {
-          path: 'medical-records',
+          path: 'medical-records', 
           element: <PrivateRoute element={<MedicalRecordPage />} />
         },
         {
-          path: 'documents',
+          path: 'documents', 
           element: <PrivateRoute element={<DocumentPage />} />
         },
       ],

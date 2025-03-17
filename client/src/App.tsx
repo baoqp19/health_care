@@ -2,8 +2,7 @@ import { ConfigProvider, App as AntApp, TableProps } from 'antd';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeRoutes } from './routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import "./index.css"; 
-import Root from './Root';
+import "./index.css";
 
 import "./i18n"
 
@@ -21,15 +20,13 @@ function App() {
           borderRadius: 4,
           controlHeight: 37,
         },
-      
+
       }}
     >
       <QueryClientProvider client={queryClient}>
-        <Root>
-          <AntApp>
-            <RouterProvider router={router} />
-          </AntApp>
-        </Root>
+        <AntApp>
+          <RouterProvider router={router} />
+        </AntApp>
       </QueryClientProvider>
     </ConfigProvider>
   );
