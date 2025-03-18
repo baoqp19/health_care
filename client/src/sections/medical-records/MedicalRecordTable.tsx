@@ -40,6 +40,7 @@ export const MedicalRecordTable = () => {
         columns={columns}
         dataSource={dataSource}
         size="middle"
+        rowKey={(record) => record.recordID}
         pagination={{
           current: page,
           pageSize: ROW_PER_PAGE,

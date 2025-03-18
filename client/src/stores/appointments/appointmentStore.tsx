@@ -1,43 +1,37 @@
-import { create } from "zustand";
+import { create } from 'zustand';
+import { Member } from '../members/memberStore';
 
-// Định nghĩa kiểu dữ liệu cho store Zustand
-
-export interface Allergy {
-    allergyID: number;
+export interface Appointment {
+    appointmentID: number
     memberID: number;
-    allergyType: string,
-    severity: string,
-    symptoms: string,
+    time: string
+    doctor: string
+    location: string
+    member: Member
 }
-
-
-export interface AllergyUpdateProps {
-    memberID: number;
-    allergyType: string,
-    severity: string,
-    symptoms: string,
+export interface AppointmentUpdateProps {
+    memberID: number
+    time: string
+    doctor: string
+    location: string
 }
-
-
 
 // Định nghĩa kiểu dữ liệu cho hàm mutationFn
-export interface UpdateAllergyProps {
-    allergyID: number | null;
-    data: AllergyUpdateProps;
+export interface UpdateAppointmentParams {
+    appointmentID: number | null;
+    data: AppointmentUpdateProps;
 }
 
-
-
-interface MembersStore {
-
-    allergy: Allergy | null;
+// Định nghĩa kiểu dữ liệu cho store Zustand
+interface AppointmentsStore {
+    appointment: Appointment | null;
     isLoading: boolean;
     error: string | null;
     openCreateModal: boolean;
     openUpdateModal: boolean;
     openDeleteModal: boolean;
 
-    setAllergy: (allergy: Allergy) => void;
+    setAppointment: (appointment: Appointment) => void;
     setLoading: (isLoading: boolean) => void;
     setError: (error: string | null) => void;
     setOpenCreateModal: (open: boolean) => void;
@@ -46,22 +40,19 @@ interface MembersStore {
 }
 
 
-// Tạo Zustand store với kiểu dữ liệu `MembersStore`
-export const useAllergiesStore = create<MembersStore>((set) => ({
-    allergy: null,
+export const useAppointmentsStore = create<AppointmentsStore>((set) => ({
+    appointment: null,
     isLoading: false,
     error: null,
     openCreateModal: false,
     openUpdateModal: false,
     openDeleteModal: false,
 
-
-    setAllergy: (allergy) => set({ allergy }),
+    setAppointment: (appointment) => set({ appointment }),
     setLoading: (isLoading) => set({ isLoading }),
     setError: (error) => set({ error }),
     setOpenCreateModal: (openCreateModal) => set({ openCreateModal }),
     setOpenUpdateModal: (openUpdateModal) => set({ openUpdateModal }),
     setOpenDeleteModal: (openDeleteModal) => set({ openDeleteModal }),
-
 
 }));

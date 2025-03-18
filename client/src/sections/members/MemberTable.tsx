@@ -23,6 +23,7 @@ export const MemberTable = () => {
         columns={columns}
         dataSource={Array.isArray(members) ? members : []} // 
         size="middle"
+        rowKey={(record) => record.memberID}
         pagination={{
           current: page,
           pageSize: ROW_PER_PAGE,

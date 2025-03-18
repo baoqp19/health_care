@@ -6,6 +6,7 @@ import { useMutation, UseMutationOptions, useQueryClient } from "@tanstack/react
 import { getDocumentsQueryOptions } from "./get-documents";
 import { ROW_PER_PAGE } from "../../config/constants";
 
+
 export const createDocument = async (document: Document): Promise<Document> => {
     try {
         const response: AxiosResponse<Document> = await axios.post("/documents", document);
@@ -21,10 +22,9 @@ export const createDocument = async (document: Document): Promise<Document> => {
 export const useCreateDocument = (
     options: UseMutationOptions<Document, Error, Document> = {}
 ) => {
+
     const { onSuccess, onError, ...restConfig } = options;
-
     const queryClient = useQueryClient();
-
 
     return useMutation({
         mutationFn: createDocument,
@@ -40,3 +40,4 @@ export const useCreateDocument = (
         ...restConfig,
     });
 };
+

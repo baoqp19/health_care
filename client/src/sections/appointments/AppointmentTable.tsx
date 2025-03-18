@@ -1,26 +1,28 @@
 import { ExportOutlined } from "@ant-design/icons";
 import { Button, Input, Table, Tag } from "antd";
+import useAppointmentColumns from "./AppointmentColumn";
 import { ROW_PER_PAGE } from "../../config/constants";
 import { useState } from "react";
-import useEmergencyContactColumns from "./EmergencyContactColumn";
-import { useEmergencyContacts } from "../../api/emergencyContacts/get-emergencyContact";
+import { useAppointments } from "../../api/appointments/get-appointment";
 
-export const EmergencyContactTable = () => {
-  const columns = useEmergencyContactColumns();
+export const AppointmentTable = () => {
+  const columns = useAppointmentColumns();
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
 
-
-
-  const { data: emergencyContacts, isLoading, error } = useEmergencyContacts({ page, size: ROW_PER_PAGE, keyword });
+  const { data: appointments, isLoading } = useAppointments({
+    page,
+    size: ROW_PER_PAGE,
+    keyword,
+  });
 
   return (
     <>
       <Table
         columns={columns}
-        dataSource={Array.isArray(emergencyContacts) ? emergencyContacts : []} // 
+        dataSource={Array.isArray(appointments) ? appointments : []}
         size="middle"
-        rowKey={(record) => record.emergencyContactID}
+        rowKey={(record) => record.appointmentID}
         pagination={{
           current: page,
           pageSize: ROW_PER_PAGE,
@@ -29,9 +31,9 @@ export const EmergencyContactTable = () => {
         }}
         loading={isLoading}
         title={() => (
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className="flex justify-between">
             <Input.Search
-              placeholder="Search emergency Contact..."
+              placeholder="Search employee..."
               className="w-[250px]"
               allowClear
               onSearch={(value) => {
