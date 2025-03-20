@@ -12,6 +12,7 @@ const MedicationTable = () => {
 
   const { data: medications, isLoading } = useMedications({ page, size: ROW_PER_PAGE, keyword });
 
+
   return (
     <>
       <Table

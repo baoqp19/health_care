@@ -1,5 +1,5 @@
 import { Typography, Card, Row, Col } from 'antd';
-import { HeartOutlined, SafetyOutlined, TeamOutlined } from '@ant-design/icons';
+import { HeartOutlined, RobotOutlined, SafetyOutlined, TeamOutlined } from '@ant-design/icons';
 import { JSX } from 'react';
 import SphereCanvas from '../../components/SpheraCanvas';
 import { useTranslation } from 'react-i18next';
@@ -61,7 +61,7 @@ const HomePage = () => {
         </Col>
       </Row>
       <Row gutter={[32, 32]} className="mt-16">
-        <Col xs={24} md={8}>
+        <Col xs={24} md={6}>
           <FeatureCard
             title={t("LandingPage.HealthTracking")}
             description={t("LandingPage.HealthTrackingDescription")}
@@ -70,7 +70,7 @@ const HomePage = () => {
             }
           />
         </Col>
-        <Col xs={24} md={8}>
+        <Col xs={24} md={6}>
           <FeatureCard
             title={t("LandingPage.DataSecurity")}
             description={t("LandingPage.DataSecurityDescription")}
@@ -79,12 +79,21 @@ const HomePage = () => {
             }
           />
         </Col>
-        <Col xs={24} md={8}>
+        <Col xs={24} md={6}>
           <FeatureCard
             title={t("LandingPage.FamilyManagement")}
             description={t("LandingPage.FamilyManagementDescription")}
             icon={
               <TeamOutlined style={{ fontSize: "3rem", color: "#7c3aed" }} />
+            }
+          />
+        </Col>
+        <Col xs={24} md={6}>
+          <FeatureCard
+            title={t("LandingPage.AISupport")}
+            description={t("LandingPage.AISupportDescription")}
+            icon={
+              <RobotOutlined style={{ fontSize: "3rem", color: "#ff5722" }} />
             }
           />
         </Col>

@@ -6,6 +6,7 @@ import { RouteObject } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
 import VaccinationPage from "../pages/manager/VaccinationPage";
 import AppointmentPage from "../pages/manager/AppointmentPage";
+import ChatPage from "../pages/manager/Chatpage";
 
 
 const DashBoardPage = Loadable(React.lazy(() => import("../pages/manager/DashBoardPage")));
@@ -17,6 +18,7 @@ const HelpPage = Loadable(React.lazy(() => import('../pages/manager/HelpPage')))
 
 const MedicalRecordPage = Loadable(React.lazy(() => import('../pages/manager/MedicalRecordPage')));
 const DocumentPage = Loadable(React.lazy(() => import('../pages/manager/DocumentPage')));
+const HealthStatsPage = Loadable(React.lazy(() => import('../pages/manager/HealthStatsPage')))
 
 export const DashboardRoutes: RouteObject = {
 
@@ -60,6 +62,10 @@ export const DashboardRoutes: RouteObject = {
           element: <HelpPage />
         },
         {
+          path: 'health-stats',
+          element: <HealthStatsPage />
+        },
+        {
           path: 'medical-records',
           // element: <PrivateRoute element={<MedicalRecordPage />} />
           element: <MedicalRecordPage />
@@ -72,6 +78,10 @@ export const DashboardRoutes: RouteObject = {
         {
           path: 'appointments',
           element: <AppointmentPage />
+        },
+        {
+          path: 'chat-ai',
+          element: <ChatPage />
         }
       ],
     },

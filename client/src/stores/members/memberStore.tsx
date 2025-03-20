@@ -37,6 +37,7 @@ export interface UpdateMemberParams {
 
 // Định nghĩa kiểu dữ liệu cho store Zustand
 interface MembersStore {
+
   member: Member | null;
   isLoading: boolean;
   error: string | null;
@@ -50,6 +51,7 @@ interface MembersStore {
   setOpenCreateModal: (open: boolean) => void;
   setOpenUpdateModal: (open: boolean) => void;
   setOpenDeleteModal: (open: boolean) => void;
+  
 }
 
 

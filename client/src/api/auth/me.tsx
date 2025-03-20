@@ -9,8 +9,6 @@ type User = {
   lastName: string;
 };
 
-
-
 export const getAccount = async (): Promise<User> => {
   const response: AxiosResponse<User> = await axios.get(`/auth/account`);
   console.log(response.data)

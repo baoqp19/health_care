@@ -6,14 +6,10 @@ import { ROW_PER_PAGE } from '../../config/constants';
 import { Member, UpdateMemberParams } from '../../stores/members/memberStore';
 
 
-
-
 export const updateMember = async ({ memberID, data }: UpdateMemberParams): Promise<Member> => {
     const response: AxiosResponse<Member> = await axios.put(`/members/${memberID}`, data);
     return response.data;
 };
-
-
 
 // Hook useMutation để cập nhật member
 export const useUpdateMember = (options?: UseMutationOptions<Member, Error, UpdateMemberParams>) => {

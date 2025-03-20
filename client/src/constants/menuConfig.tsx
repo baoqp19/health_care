@@ -5,8 +5,10 @@ import {
     ExclamationCircleOutlined,
     FileSearchOutlined,
     FileTextOutlined,
+    HeartOutlined,
     MedicineBoxOutlined,
     QuestionCircleOutlined,
+    RobotOutlined,
     SettingOutlined,
     SolutionOutlined,
     UserOutlined
@@ -91,6 +93,18 @@ const MenuConfig = () => {
             label: t("Help & Support"),
             path: "/manager/help-support",
         },
+        {
+            key: "13",
+            icon: <RobotOutlined />,
+            label: t("ChatAi"),
+            path: "/manager/chat-ai",
+        },
+        {
+            key: "14",
+            icon: <HeartOutlined />,
+            label: t("Health Stats"),
+            path: "/manager/health-stats",
+        }
     ];
     return menuItems;
 }
