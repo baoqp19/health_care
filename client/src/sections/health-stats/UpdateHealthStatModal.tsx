@@ -3,6 +3,7 @@ import { Button, Form, Input, Modal, DatePicker, Row, Col, message, Select } fro
 import moment from "moment";
 import { HealthStat, useHealthStatsStore } from "../../stores/health-stats/healthStatStore";
 import { useUpdateHealthStat } from "../../api/health-stats/update-health-stat";
+import dayjs from "dayjs";
 
 
 type PropsCreate = {
@@ -22,8 +23,9 @@ const UpdateHealthStatModal = ({ open, handleCancel }: PropsCreate) => {
       setSelectedStatType(healthStat.statType);
       form.setFieldsValue({
         ...healthStat,
-        date: healthStat.date ? moment(healthStat.date) : null,
+        date: healthStat.date
       });
+    } else {
     }
   }, [healthStat, form]);
 
@@ -46,6 +48,7 @@ const UpdateHealthStatModal = ({ open, handleCancel }: PropsCreate) => {
       ...values,
       statType: selectedStatType,
     };
+    console.log(formattedValues)
     if (typeof healthStat?.statID === "number") {
       mutation.mutate({
         statID: healthStat.statID,
@@ -116,12 +119,14 @@ const UpdateHealthStatModal = ({ open, handleCancel }: PropsCreate) => {
               label="Date and time"
               name="date"
               rules={[{ required: true, message: "Please select date" }]}
+              getValueProps={(value) => ({
+                value: value ? dayjs(value).isValid() ? dayjs(value) : null : null,
+              })}
+              getValueFromEvent={(date) => date ? date.format("YYYY-MM-DD") : ""}
             >
               <DatePicker
-                showTime
                 placeholder="Select the date and time of measurement."
                 style={{ width: "100%" }}
-                format="YYYY-MM-DD HH:mm"
               />
             </Form.Item>
           </Col>

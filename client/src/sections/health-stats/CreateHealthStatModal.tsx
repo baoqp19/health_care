@@ -35,6 +35,8 @@ const CreateHealthStatModal = ({ open, handleCancel, selectedMemberId }: PropsCr
       statType: selectedStatType,
       memberID: selectedMemberId,
     }
+
+    console.log(formattedValues)
     mutation.mutate(formattedValues)
   };
 
@@ -128,10 +130,9 @@ const CreateHealthStatModal = ({ open, handleCancel, selectedMemberId }: PropsCr
               }
             >
               <DatePicker
-                showTime
                 placeholder="Select the date and time of measurement."
                 style={{ width: '100%' }}
-                format="YYYY-MM-DD HH:mm"
+                format="YYYY-MM-DD"
               />
             </Form.Item>
           </Col>

@@ -4,6 +4,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useDeleteDocument } from "../../api/documents/delete-documents";
 import { Document, useDocumentsStore } from "../../stores/documents/documentStore";
 import { ColumnType } from "antd/es/table";
+import { getFileExtension } from "./FileExtensions";
 
 const useDocumentColumns = () => {
 
@@ -46,17 +47,13 @@ const useDocumentColumns = () => {
         title: "File name",
         dataIndex: "fileName",
         key: "fileName",
-        align: "center",
+        align: "center"
       },
       {
         title: "File type",
         dataIndex: "fileType",
         key: "fileType",
-      },
-      {
-        title: "File content",
-        dataIndex: "fileContent",
-        key: "fileContent",
+        render: (fileType) => getFileExtension(fileType),
       },
       {
         title: "Upload date",

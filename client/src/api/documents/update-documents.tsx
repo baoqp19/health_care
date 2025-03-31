@@ -6,14 +6,24 @@ import { Document, UpdateDocumentParams } from "../../stores/documents/documentS
 import { getDocumentsQueryOptions } from "./get-documents";
 
 
-export const updateDocument = async ({ documentID, data }: UpdateDocumentParams): Promise<Document> => {
-    const response: AxiosResponse<Document> = await axios.put(`/documents/${documentID}`, data);
+export const updateDocument = async ({ documentID, data, file }: UpdateDocumentParams): Promise<Document> => {
+
+    const formData = new FormData();
+    if (file) {
+        formData.append("file", file);
+    }
+    formData.append("request", JSON.stringify(data));
+
+    const response: AxiosResponse<Document> = await axios.put(`/documents/${documentID}`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    });
+
     console.log(response.data)
     return response.data;
 
 };
-
-
 
 export const useUpdateDocument = (options?: UseMutationOptions<Document, Error, UpdateDocumentParams>) => {
     const { onSuccess, onError, ...restConfig } = options || {};

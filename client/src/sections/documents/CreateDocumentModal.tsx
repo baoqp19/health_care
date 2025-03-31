@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
 import { fileExtensions } from "./FileExtensions";
+import { useState } from "react";
 
 
 
@@ -20,11 +21,12 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
   const [form] = Form.useForm();
 
   const { openCreateModal, setOpenCreateModal } = useDocumentsStore();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const mutation = useCreateDocument({
     onSuccess: () => {
       form.resetFields();
-      setOpenCreateModal(false);
+      setSelectedFile(null);
       message.success("Document added successfully");
     },
     onError: () => {
@@ -36,6 +38,7 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
   const handleFileChange = (info: { fileList: any[] }) => {
     const file = info.fileList[0].originFileObj;
     if (file && file.size > 0) {
+      setSelectedFile(file);
       const reader = new FileReader();
 
       reader.onload = (e) => {
@@ -73,8 +76,10 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
     const { uploadFile, ...filteredValues } = values;
     const formattedValues = {
       ...filteredValues,
+      // file: selectedFile
     };
     mutation.mutate(formattedValues);
+    setOpenCreateModal(false);
   };
   return (
     <Modal
@@ -125,15 +130,6 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
                 optionFilterProp="label"
                 options={fileExtensions}
               />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              label="File content"
-              name="fileContent"
-              rules={[{ required: true, message: "Please enter file content" }]}
-            >
-              <Input placeholder="Enter file content..." />
             </Form.Item>
           </Col>
         </Row>

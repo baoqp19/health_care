@@ -247,19 +247,21 @@ public class AuthController {
   }
 
   @PostMapping("/forgot-password")
-  public ResponseEntity<String> sendOTP(@Valid @RequestBody OTPRequest request) {
+  public ResponseEntity<ApiResponse<String>> sendOTP(@Valid @RequestBody OTPRequest request) {
     String result = forgotPasswordService.sendOTP(request.getEmail());
 
-    return new ResponseEntity<>(result, HttpStatus.CREATED);
+    return ResponseEntity.ok(new ApiResponse<>(200, "Success", result));
   }
 
   @PostMapping("/otp")
-  public ResponseEntity<String> sendNewPassword(@Valid @RequestBody NewPasswordRequest request) {
+  public ResponseEntity<ApiResponse<String>> sendNewPassword(@Valid @RequestBody NewPasswordRequest request) {
     String result = forgotPasswordService.sendNewPassword(request.getEmail(), request.getOtp());
 
     if (result == null) {
-      return ResponseEntity.ok().body("OTP invalid");
+      return ResponseEntity.ok(new ApiResponse<>(400, "Error", null));
     }
-    return ResponseEntity.ok().body("New password has been sent to your email");
+    return ResponseEntity.ok(new ApiResponse<>(200, "Success", result));
   }
+
+
 }

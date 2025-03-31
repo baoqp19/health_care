@@ -31,7 +31,7 @@ const DocumentPage = () => {
     <>
       <Flex align="center" justify="space-between" className="mb-2">
         <PageHeader
-          heading="Medical records"
+        heading="Documents" 
           links={[{ title: "DashBoard", href: "/documents" }, { title: "Documents" }]}
         />
         <Space>

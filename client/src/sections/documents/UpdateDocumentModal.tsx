@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal, Select, Row, DatePicker, Col, message, Upload } from "antd";
 import { Flex } from "antd";
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Document, Document1, UpdateDocumentParams, useDocumentsStore } from "../../stores/documents/documentStore";
 import { useUpdateDocument } from "../../api/documents/update-documents";
 import dayjs from "dayjs";
@@ -25,9 +25,12 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({ open, handleC
     (state) => state
   );
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const handleFileChange = (info: { fileList: any[] }) => {
     const file = info.fileList[0].originFileObj;
     if (file && file.size > 0) {
+      setSelectedFile(file);
       const reader = new FileReader();
 
       reader.onload = (e) => {
@@ -76,6 +79,7 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({ open, handleC
       mutation.mutate({
         documentID: document.documentID,
         data: filteredValues,
+        file: selectedFile 
       });
       setOpenUpdateModal(false);
     };

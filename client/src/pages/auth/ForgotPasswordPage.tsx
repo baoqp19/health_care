@@ -2,7 +2,7 @@ import { Button, Col, Form, Input, InputRef, message, Row, Space } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import Title from "antd/es/typography/Title";
 import { useEffect, useRef, useState } from "react";
-import { useSendOTP } from "../../api/auth/sendOTP";
+import { EmailProps, useSendOTP } from "../../api/auth/sendOTP";
 import { useSendNewPassword } from "../../api/auth/sendNewPassword";
 import { ReloadOutlined, CheckCircleOutlined } from "@ant-design/icons";
 
@@ -19,7 +19,7 @@ const EnterEmail = () => {
   const [loading, setLoading] = useState(false);
   const [loadingComfirm, setLoadingComfirm] = useState(false);
   const [otpSent, setOtpSent] = useState(false); // State để hiển thị form OTP
-  const [emailCurrent, setEmailCurrent] = useState<string>("");
+  const [emailCurrent, setEmailCurrent] = useState<EmailProps>({ email: "" });
   const firstInputRef = useRef<InputRef | null>(null);
 
   const sendOTPMutation = useSendOTP({
@@ -47,7 +47,8 @@ const EnterEmail = () => {
     },
   });
 
-  const onEmailSubmit = (values: string) => {
+  const onEmailSubmit = (values: EmailProps) => {
+    console.log(values)
     setEmailCurrent(values);
     setLoading(true); // Bắt đầu loading cho email submit
     sendOTPMutation.mutate(values);

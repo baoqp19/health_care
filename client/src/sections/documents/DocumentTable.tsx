@@ -4,17 +4,25 @@ import useDocumentColumns from "./DocumentColumns";
 import { ROW_PER_PAGE } from "../../config/constants";
 import { useState } from "react";
 import { useDocuments } from "../../api/documents/get-documents";
+import DocumentDetail from "./DocumentDetail";
 
 export const DocumentTable = () => {
 	const columns = useDocumentColumns();
 	const [page, setPage] = useState(1);
 	const [keyword, setKeyword] = useState("");
+	const [selectedItem, setSelectedItem] = useState(null);
+	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	const { data: documents, isLoading } = useDocuments({
 		page,
 		size: ROW_PER_PAGE,
 		keyword,
 	});
+
+	const doubleClickHandler = (item: any) => {
+		setSelectedItem(item);
+		setIsModalVisible(true);
+	}
 
 	return (
 		<>
@@ -24,7 +32,9 @@ export const DocumentTable = () => {
 				size="middle"
 				onRow={(item) => {
 					return {
-						onDoubleClick: () => console.log(item)
+						onDoubleClick: () => {
+							doubleClickHandler(item);
+						}
 					}
 				}}
 				pagination={{
@@ -50,6 +60,11 @@ export const DocumentTable = () => {
 						</Button>
 					</div>
 				)}
+			/>
+			<DocumentDetail
+				visible={isModalVisible}
+				item={selectedItem}
+				onCancel={() => setIsModalVisible(false)}
 			/>
 		</>
 	);

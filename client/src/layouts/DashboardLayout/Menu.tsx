@@ -58,7 +58,7 @@ const MenuCustom: React.FC<MenuCustomProps> = ({ isMobile, onClose, theme = "lig
                 },
             }}
         >
-            <SimpleBar style={{ maxHeight: "calc(100vh - 80px)" }}>
+            <SimpleBar className="h-full overflow-hidden">
                 <Menu
                     theme={theme}
                     selectedKeys={selectedKeys}

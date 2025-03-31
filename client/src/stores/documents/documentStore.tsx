@@ -5,18 +5,25 @@ export interface Document {
     recordID: number
     fileName: string
     fileType: string
-    fileContent: string
     uploadDate: string
+    file: File
+}
+
+export interface CreateDocumentProps {
+    recordID: number
+    fileName: string
+    fileType: string
+    uploadDate: string
+    file: File
 }
 
 export interface Document1 {
-
     documentID: number
     recordID: number
     fileName: string
     fileType: string
     uploadFile: string
-    fileContent: string
+    file: File
     uploadDate: string
 }
 
@@ -25,13 +32,14 @@ export interface DocumentUpdateProps {
     recordID: number
     fileName: string
     fileType: string
-    fileContent: string
     uploadDate: string
+    file: File | null
 }
 
 export interface UpdateDocumentParams {
     documentID: number | null;
     data: DocumentUpdateProps;
+    file: File | null;
 }
 
 
