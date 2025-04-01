@@ -14,9 +14,6 @@ export const MemberTable = () => {
 
   const { data: members, isLoading } = useMembers({ page, size: ROW_PER_PAGE, keyword });
 
-
-  console.log(members, isLoading);
-
   return (
     <>
       <Table

@@ -6,8 +6,8 @@ import { Document, useDocumentsStore } from "../../stores/documents/documentStor
 import { ColumnType } from "antd/es/table";
 import { getFileExtension } from "./FileExtensions";
 
-const useDocumentColumns = () => {
-
+const useDocumentColumns = () => {     
+ 
   const { setOpenUpdateModal, setDocument } = useDocumentsStore((state) => state);
 
   const mutateDelete = useDeleteDocument({

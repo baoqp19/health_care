@@ -6,7 +6,7 @@ export interface Document {
     fileName: string
     fileType: string
     uploadDate: string
-    file: File
+    file: File | null
 }
 
 export interface CreateDocumentProps {
@@ -14,7 +14,7 @@ export interface CreateDocumentProps {
     fileName: string
     fileType: string
     uploadDate: string
-    file: File
+    file: File | null
 }
 
 export interface Document1 {

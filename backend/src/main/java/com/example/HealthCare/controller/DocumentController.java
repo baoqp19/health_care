@@ -10,8 +10,8 @@ import com.example.HealthCare.request.document.AddDocumentRequest;
 import com.example.HealthCare.request.document.UpdateDocumentRequest;
 import com.example.HealthCare.response.ApiResponse;
 import com.example.HealthCare.service.DocumentService;
-import com.example.HealthCare.service.MedicalRecordService;
 import com.example.HealthCare.service.UserService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,28 +47,48 @@ public class DocumentController {
     private final String BASE_URL = "/documents/download";
     private final MedicalRecordRepository medicalRecordRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
-
     private User user;
+
     public DocumentController(DocumentService documentService, UserService userService, MedicalRecordRepository medicalRecordRepository) {
         this.documentService = documentService;
         this.userService = userService;
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
+    static class TestDto {
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        public LocalDate uploadDate;
+    }
+
+
+    @GetMapping("documentss")
+    public String getAll(){
+      try{
+          String  jsJon = "{\"uploadDate\": \"2024-03-30\"}";
+          TestDto dto = objectMapper.readValue(jsJon, TestDto.class);
+          System.out.println(dto.uploadDate); // Nếu ra kết quả, nghĩa là Jackson đã hoạt động
+          log.info("uploadDate: " + dto.uploadDate);
+      }catch (Exception e){
+          e.printStackTrace();
+      }
+        return "thanhf coong";
+    }
 
     @PostMapping("/documents")
-    public ResponseEntity<?> addDocument( @Validated @RequestParam("file") MultipartFile file,
+    public ResponseEntity<?> addDocument(@Validated @RequestParam("file") MultipartFile file,
                                                  @RequestParam("request") @Valid String json) {
-        String email = SercurityUtil.getCurrentUserLogin().isPresent() ? SercurityUtil.getCurrentUserLogin().get() : "";
 
+        String email = SercurityUtil.getCurrentUserLogin().isPresent() ? SercurityUtil.getCurrentUserLogin().get() : "";
         User user = this.userService.handleGetUserByEmail(email);
 
         try {
+
             AddDocumentRequest addDocumentRequest = objectMapper.readValue(json, AddDocumentRequest.class);
             MedicalRecord medicalRecord = medicalRecordRepository.findById(addDocumentRequest.getRecordID())
                     .orElseThrow(() -> new RuntimeException("MedicalRecord not found"));
             String subFolder = user.getEmail();
             Path directoryPath = Paths.get(BASE_DIRECTORY, subFolder);
+
             if (!Files.exists(directoryPath)) {
                 Files.createDirectories(directoryPath);
             }

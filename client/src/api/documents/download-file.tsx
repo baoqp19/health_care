@@ -6,7 +6,7 @@ type PathParams = {
 }
 
 export type UseDownloadDocumentProps = {
-    queryConfig?: object; // Có thể dùng Partial<UseQueryOptions>
+    queryConfig?: object;  
 } & PathParams;
 
 
@@ -20,12 +20,14 @@ export const downloadFile = async ({ path }: PathParams) => {
     return response.data;
 };
 
+
 export const getDownloadFileQueryOptions = ({ path }: PathParams) => {
     return queryOptions({
         queryKey: path ? ["downloadFile", { path }] : ["downloadFile"],
         queryFn: () => downloadFile({ path }),
     });
 };
+
 
 export const useDownloadFile = ({ queryConfig = {}, path }: UseDownloadDocumentProps) => {
     return useQuery({

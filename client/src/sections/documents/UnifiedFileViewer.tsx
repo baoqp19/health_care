@@ -10,9 +10,11 @@ type UnifiedFileViewerProps = {
 };
 
 function UnifiedFileViewer({ file, filePath, fileType }: UnifiedFileViewerProps) {
-  const [content, setContent] = useState<string>(""); // Sửa `String` thành `string`
-  const [excelData, setExcelData] = useState<any[]>([]); // Mảng chứa dữ liệu Excel
-  const [imageUrl, setImageUrl] = useState<string | null>(null); // URL hình ảnh có thể null
+
+
+  const [content, setContent] = useState<string>("");
+  const [excelData, setExcelData] = useState<any[]>([]);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
 
   const handleTextFile = (fileBlob: Blob) => {

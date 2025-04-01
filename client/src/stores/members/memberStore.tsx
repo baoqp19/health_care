@@ -51,13 +51,13 @@ interface MembersStore {
   setOpenCreateModal: (open: boolean) => void;
   setOpenUpdateModal: (open: boolean) => void;
   setOpenDeleteModal: (open: boolean) => void;
-  
+
 }
 
 
 // Tạo Zustand store với kiểu dữ liệu `MembersStore`
 export const useMembersStore = create<MembersStore>((set) => ({
-  
+
   member: null,
   isLoading: false,
   error: null,

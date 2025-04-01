@@ -73,11 +73,11 @@ const CreateDocumentModal = ({ open, handleCancel }: PropsCreate) => {
   };
 
   const onFinish = (values: Document1) => {
-    const { uploadFile, ...filteredValues } = values;
     const formattedValues = {
-      ...filteredValues,
-      // file: selectedFile
+      ...values,
+      file: selectedFile
     };
+    console.log(formattedValues)
     mutation.mutate(formattedValues);
     setOpenCreateModal(false);
   };

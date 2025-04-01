@@ -24,16 +24,20 @@ export type UseMembersProps = {
 
 
 export const getMembers = async ({ page, size, keyword }: GetMembersParams): Promise<GetMembersResponse> => {
-  const response = await axios.get(`/members`, {
-    params: {
-      page,
-      size,
-      keyword,
-    },
-  });
-  return response.data
-};
+  console.log("🔍 API request params:", { page, size, keyword });
 
+  try {
+    const response = await axios.get(`/members`, {
+      params: { page, size, keyword },
+    });
+
+    console.log("✅ API response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("❌ Lỗi gọi API:", error);
+    throw new Error("Không thể lấy danh sách thành viên.");
+  }
+};
 
 export const getMembersQueryOptions = ({
   page,
@@ -41,13 +45,11 @@ export const getMembersQueryOptions = ({
   keyword,
 }: GetMembersParams) => {
   return queryOptions({
-    queryKey: page ? ["members", { page, size, keyword }] : ["members"], // cache dữ liệu
+    queryKey: ["members", { page, size, keyword }], // cache dữ liệu
     queryFn: () => getMembers({ page, size, keyword }), // gọi API 
   });
 
 };
-
-
 
 export const useMembers = ({ queryConfig = {}, page, size, keyword }: UseMembersProps) => {
   return useQuery({
