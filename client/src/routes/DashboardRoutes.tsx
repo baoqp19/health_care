@@ -7,6 +7,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import VaccinationPage from "../pages/manager/VaccinationPage";
 import AppointmentPage from "../pages/manager/AppointmentPage";
 import ChatPage from "../pages/manager/Chatpage";
+import NotePage from "../pages/manager/Notepage";
 
 
 const DashBoardPage = Loadable(React.lazy(() => import("../pages/manager/DashBoardPage")));
@@ -15,7 +16,6 @@ const AllergyPage = Loadable(React.lazy(() => import('../pages/manager/AllergyPa
 const MedicationPage = Loadable(React.lazy(() => import('../pages/manager/MedicationPage')));
 const EmergencyContactPage = Loadable(React.lazy(() => import('../pages/manager/EmergencyContactPage')));
 const HelpPage = Loadable(React.lazy(() => import('../pages/manager/HelpPage')));
-
 const MedicalRecordPage = Loadable(React.lazy(() => import('../pages/manager/MedicalRecordPage')));
 const DocumentPage = Loadable(React.lazy(() => import('../pages/manager/DocumentPage')));
 const HealthStatsPage = Loadable(React.lazy(() => import('../pages/manager/HealthStatsPage')))
@@ -33,32 +33,26 @@ export const DashboardRoutes: RouteObject = {
         },
         {
           path: 'members',
-          // element: <PrivateRoute element={<MemberPage />} />,
           element: <MemberPage />
         },
         {
           path: 'allergies',
-          // element: <PrivateRoute element={<AllergyPage />} />
           element: <AllergyPage />
         },
         {
           path: 'medications',
-          // element: <PrivateRoute element={<MedicationPage />} />
           element: <MedicationPage />
         },
         {
           path: 'vaccinations',
-          // element: <PrivateRoute element={<VaccinationPage />} />
           element: <VaccinationPage />
         },
         {
           path: 'emergency-contacts',
-          // element: <PrivateRoute element={<EmergencyContactPage />} />
           element: <EmergencyContactPage />
         },
         {
           path: 'help-support',
-          // element: <PrivateRoute element={<HelpPage />} />
           element: <HelpPage />
         },
         {
@@ -78,6 +72,10 @@ export const DashboardRoutes: RouteObject = {
         {
           path: 'appointments',
           element: <AppointmentPage />
+        },
+        {
+          path: 'notes',
+          element: <NotePage />
         },
         {
           path: 'chat-ai',

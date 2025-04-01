@@ -3,7 +3,7 @@ import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useMemo } from "react";
-import userMenuConfig from "../../constants/menuConfig"
+import MenuDashboardConfig from "../../constants/menuDashBoardConfig"
 
 type MenuCustomProps = {
     mode: "inline" | "vertical" | "horizontal";
@@ -16,7 +16,7 @@ const MenuCustom: React.FC<MenuCustomProps> = ({ isMobile, onClose, theme = "lig
     const navigate = useNavigate();
     const location = useLocation();
 
-    const menuItems = userMenuConfig();
+    const menuItems = MenuDashboardConfig();
 
     const findItemByPath = useCallback((items: any[], path: string): any => {
         for (const item of items) {
@@ -37,15 +37,13 @@ const MenuCustom: React.FC<MenuCustomProps> = ({ isMobile, onClose, theme = "lig
     }, [location.pathname, findItemByPath]);
 
     const handleMenuClick: MenuProps["onClick"] = useCallback(
-
-        (e: { key: string }) => {
-            const menuItem = menuItems.find((item) => item.key === e.key);
-            if (!menuItem) return;
-
+        (e: any) => {
             if (isMobile) {
                 onClose();
             }
-            navigate(menuItem.path);
+            if (e.item?.props?.path) {
+                navigate(e.item.props.path);
+            }
         },
         [isMobile, onClose, navigate]
     );

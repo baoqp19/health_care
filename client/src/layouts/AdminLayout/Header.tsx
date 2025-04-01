@@ -5,8 +5,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { Header } from "antd/es/layout/layout";
-import UserDropdown from "./UserDropdown";
-import React from "react";
+import UserDropdown from ".";
 import LanguageSwitcher from "../../components/languageSwitcher";
 
 type HeaderLayoutProps = {

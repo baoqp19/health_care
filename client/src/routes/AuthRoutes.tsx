@@ -1,6 +1,6 @@
 import Loadable from "../components/Loadable";
 import AuthRoute from "../gurads/AuthRoute";
-import AuthLayout from "../layouts/AuthLayout";
+import AuthLayout from "../layouts/AdminLayout";
 import React from "react";
 
 const LoginPage = Loadable(React.lazy(() => import("../pages/auth/LoginPage")));
